@@ -66,25 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     PersonPage(title: "Person"),
   ];
 
-  static const tabs = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'Home',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.search),
-      label: 'Discover',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.gif),
-      label: 'Gif',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Person',
-    ),
-  ];
-
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -100,9 +81,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: tabs,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.play_arrow),
+            label: 'Discover',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.gif),
+            label: 'Gif',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: 'Person',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        selectedItemColor: Theme.of(context).primaryColorLight,
       ),
     );
   }
