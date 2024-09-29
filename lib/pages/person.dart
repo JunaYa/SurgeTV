@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:surgetv/components/CarouselBanner.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
+import 'package:surgetv/pages/login.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key, required this.title});
@@ -25,30 +25,38 @@ class _PersonPageState extends State<PersonPage> {
         children: [
           const SizedBox(height: 20),
           // header login layout
-          const Row(
-            children: <Widget>[
-              Text(
-                'SurgeTV',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+          GestureDetector(
+            child: const Row(
+              children: <Widget>[
+                Text(
+                  'SurgeTV',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Padding(padding: EdgeInsetsDirectional.only(end: 16.0)),
-              Text(
-                '登录/注册',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                Padding(padding: EdgeInsetsDirectional.only(end: 16.0)),
+                Text(
+                  '登录/注册',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              // arrow right icon
-              Icon(
-                Icons.arrow_right_outlined,
-                size: 24,
-                color: Colors.black,
-              ),
-            ],
+                // arrow right icon
+                Icon(
+                  Icons.arrow_right_outlined,
+                  size: 24,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
           ),
           const SizedBox(height: 20),
           const WalletInfoBoard(),
