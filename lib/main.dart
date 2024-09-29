@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:surgetv/components/CarouselBanner.dart';
 import 'package:surgetv/pages/discover.dart';
 import 'package:surgetv/pages/gif.dart';
 import 'package:surgetv/pages/home.dart';
@@ -64,8 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     HomePage(title: "Home"),
     DiscoverPage(title: "Discover"),
     GifPage(title: "Gif"),
-    // PersonPage(title: "Person"),
-    CarouselExampleApp(),
+    PersonPage(title: "Person"),
   ];
 
   int _selectedIndex = 0;
