@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/CarouselBanner.dart';
 
 class GifPage extends StatefulWidget {
   const GifPage({super.key, required this.title});
@@ -24,6 +25,14 @@ class _GifPageState extends State<GifPage> {
             Text(
               'Gif Page',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('ElevatedButton'),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text('TextButton'),
             ),
           ],
         ),

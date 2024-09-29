@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/CarouselBanner.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key, required this.title});
