@@ -1,9 +1,16 @@
 // login page
 
 import 'package:flutter/material.dart';
+import 'package:surgetv/dao/user_dao.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
+  void _login() {
+    UserDao.login().then((value) {
+      print(value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,8 @@ class LoginPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             // Navigate to the second screen using a named route.
-            Navigator.pushNamed(context, '/home');
+            // Navigator.pushNamed(context, '/home');
+            _login();
           },
           child: const Text('登录'),
         ),
