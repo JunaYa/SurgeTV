@@ -3,6 +3,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:surgetv/components/CardBanner.dart';
 import 'package:surgetv/components/HotVideosLayoutCard.dart';
 import 'package:surgetv/components/NeverMissingLayoutCard.dart';
+import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
 
@@ -78,6 +79,21 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (index == 2) {
             return HotVideoLayoutCard(
+              dataList[index].id,
+              category: dataList[index],
+            );
+          } else if (index == 3) {
+            return RankingLayoutCard(
+              dataList[index].id,
+              category: dataList[index],
+            );
+          } else if (index == 4) {
+            return NeverMissingLayoutCard(
+              dataList[index].id,
+              category: dataList[index],
+            );
+          } else if (index == 5) {
+            return RankingLayoutCard(
               dataList[index].id,
               category: dataList[index],
             );
