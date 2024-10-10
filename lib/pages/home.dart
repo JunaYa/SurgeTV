@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:surgetv/components/CardBanner.dart';
+import 'package:surgetv/components/HotVideosLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
 
@@ -68,6 +69,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
+            );
+          } else if (index == 1) {
+            return RecentlyViewedLayoutCard(
+              dataList[index].id,
+              category: dataList[index],
+            );
+          } else if (index == 2) {
+            return HotVideoLayoutCard(
+              dataList[index].id,
+              category: dataList[index],
             );
           } else {
             return RecentlyViewedLayoutCard(

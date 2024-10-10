@@ -15,15 +15,16 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.sizeOf(context).width;
 
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      margin: const EdgeInsetsDirectional.only(start: 16, end: 16),
       child: Column(
         children: [
           const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+              padding: const EdgeInsetsDirectional.only(top: 8.0, start: 0.0),
               child: Text(
                 category.name,
                 textAlign: TextAlign.left,
@@ -34,6 +35,7 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 8),
           // category.length == 0 display empty view
           category.data.isEmpty
               ? const SizedBox(
@@ -42,68 +44,70 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
                     child: Text('No data'),
                   ),
                 )
-              :
-          ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 200, maxWidth: width),
-            child: CarouselView(
-              itemExtent: width / 3,
-              shrinkExtent: width / 3,
-              children: category.data.map((VideoItem item) {
-                return SizedBox(
-                    width: width / 4,
-                    height: width,
-                    child: Card(
-                      elevation: 0,
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        children: <Widget>[
-                          Stack(
-                            alignment: AlignmentDirectional.bottomStart,
+              : ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 200, maxWidth: width),
+                  child: CarouselView(
+                    itemExtent: width / 3,
+                    shrinkExtent: width / 3,
+                    children: category.data.map((VideoItem item) {
+                      return SizedBox(
+                        width: width / 4,
+                        height: width,
+                        child: Card(
+                          elevation: 0,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
                             children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                height: width / 3,
-                                color: Colors.blue,
-                                child: const Image(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_1.png'),
-                                ),
-                              ),
-                              // player icon
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  alignment: AlignmentDirectional.center,
-                                  child: const Icon(
-                                    Icons.play_circle_fill,
-                                    color: Colors.white,
-                                    size: 40,
+                              Stack(
+                                alignment: AlignmentDirectional.bottomStart,
+                                children: <Widget>[
+                                  Container(
+                                    width: double.infinity,
+                                    height: width / 3,
+                                    color: Colors.blue,
+                                    child: const Image(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_1.png'),
+                                    ),
                                   ),
-                                ),
+                                  // player icon
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      alignment: AlignmentDirectional.center,
+                                      child: const Icon(
+                                        Icons.play_circle_fill,
+                                        color: Colors.white,
+                                        size: 40,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                    top: 8.0,
+                                    // start: 8.0,
+                                    // end: 8.0,
+                                  ),
+                                  child: Text(
+                                    item.subject,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  )),
                             ],
                           ),
-                          Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                top: 8.0,
-                                // start: 8.0,
-                                // end: 8.0,
-                              ),
-                              child: Text(
-                                item.subject,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )),
-                        ],
-                      ),
-                    ));
-              }).toList(),
-            ),
-          )
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+          // margin bottom
+          const SizedBox(height: 16),
         ],
       ),
     );
