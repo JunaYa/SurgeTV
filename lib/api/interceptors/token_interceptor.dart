@@ -49,9 +49,14 @@ class TokenInterceptors extends InterceptorsWrapper {
   ///获取授权token
   getAuthorization() async {
     String? token = await LocalStorage.get(Config.TOKEN_KEY);
+    // mock token
+    token =
+        "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjM2NkYmEyYy05NTI0LTRlN2MtODk0My1mODEwZWQ4OGFiMmYiLCJpYXQiOjE3MjE4ODYwMDksInVzZXJJZCI6MTEzMn0.w9fiXZa5pl-wbvZLmNgPhKvt1mxzPxpA81sOqAKg9G0";
+    _token = token;
     if (token == null) {
       _token = token;
       return token;
     }
+    return token;
   }
 }

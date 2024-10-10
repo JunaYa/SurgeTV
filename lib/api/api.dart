@@ -63,10 +63,9 @@ class HttpManager {
         errorResponse!.statusCode = Code.NETWORK_TIMEOUT;
       }
       return ResultData(
-        errorResponse!.data,
-        errorResponse.statusCode,
-        Code.errorHandleFunction(errorResponse.statusCode, e.message, noTip),
-      );
+          Code.errorHandleFunction(errorResponse!.statusCode, e.message, noTip),
+          false,
+          errorResponse.statusCode);
     }
 
     Response response;
@@ -78,6 +77,7 @@ class HttpManager {
     if (response.data is DioException) {
       return resultError(response.data);
     }
+    print('-------result ${response.data}');
     return response.data;
   }
 

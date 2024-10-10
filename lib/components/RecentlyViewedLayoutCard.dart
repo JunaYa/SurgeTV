@@ -1,74 +1,97 @@
 // 最近观看
 import 'package:flutter/material.dart';
+import 'package:surgetv/model/home.dart';
 
 class RecentlyViewedLayoutCard extends StatelessWidget {
-  const RecentlyViewedLayoutCard({
+  const RecentlyViewedLayoutCard(
+    dataList, {
     super.key,
+    required this.category,
   });
+
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.sizeOf(context).width;
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 200, maxWidth: width / 4),
-      child: CarouselView(
-        itemExtent: width / 3,
-        shrinkExtent: width / 3,
-        children: ImageInfo.values.map((ImageInfo image) {
-          return SizedBox(
-              width: width / 4,
-              height: width,
-              child: Card(
-                elevation: 0,
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  children: <Widget>[
-                    Stack(
-                      alignment: AlignmentDirectional.bottomStart,
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          height: width / 3,
-                          color: Colors.blue,
-                          child: Image(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                'https://flutter.github.io/assets-for-api-docs/assets/material/${image.url}'),
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+            child: Text(
+              category.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 200, maxWidth: width),
+            child: CarouselView(
+              itemExtent: width / 3,
+              shrinkExtent: width / 3,
+              children: category.data.map((VideoItem item) {
+                return SizedBox(
+                    width: width / 4,
+                    height: width,
+                    child: Card(
+                      elevation: 0,
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: <Widget>[
+                          Stack(
+                            alignment: AlignmentDirectional.bottomStart,
+                            children: <Widget>[
+                              Container(
+                                width: double.infinity,
+                                height: width / 3,
+                                color: Colors.blue,
+                                child: Image(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      'https://flutter.github.io/assets-for-api-docs/assets/material/${image.url}'),
+                                ),
+                              ),
+                              // player icon
+                              Positioned(
+                                left: 0,
+                                top: 0,
+                                right: 0,
+                                bottom: 0,
+                                child: Container(
+                                  alignment: AlignmentDirectional.center,
+                                  child: const Icon(
+                                    Icons.play_circle_fill,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        // player icon
-                        Positioned(
-                          left: 0,
-                          top: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            alignment: AlignmentDirectional.center,
-                            child: const Icon(
-                              Icons.play_circle_fill,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                          top: 8.0,
-                          // start: 8.0,
-                          // end: 8.0,
-                        ),
-                        child: Text(
-                          image.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )),
-                  ],
-                ),
-              ));
-        }).toList(),
+                          Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                top: 8.0,
+                                // start: 8.0,
+                                // end: 8.0,
+                              ),
+                              child: Text(
+                                item.subject,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )),
+                        ],
+                      ),
+                    ));
+              }).toList(),
+            ),
+          )
+        ],
       ),
     );
   }
