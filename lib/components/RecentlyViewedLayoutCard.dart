@@ -20,16 +20,29 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
-            child: Text(
-              category.name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(top: 8.0, start: 8.0),
+              child: Text(
+                category.name,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
+          // category.length == 0 display empty view
+          category.data.isEmpty
+              ? const SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: Text('No data'),
+                  ),
+                )
+              :
           ConstrainedBox(
             constraints: BoxConstraints(maxHeight: 200, maxWidth: width),
             child: CarouselView(
@@ -51,10 +64,10 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
                                 width: double.infinity,
                                 height: width / 3,
                                 color: Colors.blue,
-                                child: Image(
+                                child: const Image(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
-                                      'https://flutter.github.io/assets-for-api-docs/assets/material/${image.url}'),
+                                      'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_1.png'),
                                 ),
                               ),
                               // player icon
