@@ -47,12 +47,10 @@ class RankingLayoutCard extends StatelessWidget {
                 )
               : ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: 200, maxWidth: width),
-                  child: CarouselView(
-                    itemExtent: (width - 48) / 3,
-                    shrinkExtent: width / 3,
+                  child: Row(
                     children: category.data.map((VideoItem item) {
                       return SizedBox(
-                        width: (width - 48) / 4,
+                        width: (width - 48) / 3,
                         // height: width,
                         child: Card(
                           elevation: 0,
