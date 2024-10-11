@@ -51,7 +51,8 @@ class TokenInterceptors extends InterceptorsWrapper {
     String? token = await LocalStorage.get(Config.TOKEN_KEY);
     // mock token
     token =
-        "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjM2NkYmEyYy05NTI0LTRlN2MtODk0My1mODEwZWQ4OGFiMmYiLCJpYXQiOjE3MjE4ODYwMDksInVzZXJJZCI6MTEzMn0.w9fiXZa5pl-wbvZLmNgPhKvt1mxzPxpA81sOqAKg9G0";
+        // "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjM2NkYmEyYy05NTI0LTRlN2MtODk0My1mODEwZWQ4OGFiMmYiLCJpYXQiOjE3MjE4ODYwMDksInVzZXJJZCI6MTEzMn0.w9fiXZa5pl-wbvZLmNgPhKvt1mxzPxpA81sOqAKg9G0";
+        "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjNWIwMWQ1MC0wZmQ5LTRhYjAtOTI3ZS00NWE3MzIxNGIzY2IiLCJpYXQiOjE3MjMxODU4OTEsInVzZXJJZCI6MTEzNH0.rFjIGXuRK99o-nAR40Epnz4ua9SaaRo23sNmUijonwc";
     _token = token;
     if (token == null) {
       _token = token;
