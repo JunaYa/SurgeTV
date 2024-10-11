@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/model/home.dart';
+import 'package:surgetv/pages/video.dart';
 
 // 热播内容
 
@@ -47,68 +48,80 @@ class HotVideoLayoutCard extends StatelessWidget {
                 )
               : Column(
                   children: category.data.map((VideoItem item) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Card(
-                          elevation: 0,
-                          clipBehavior: Clip.antiAlias,
-                          child: Container(
-                            width: width / 3,
-                            height: width / 3,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_2.png',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
+                    return GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(
+                              videoItem: item,
                             ),
                           ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              width: width / 2,
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.only(
-                                    // top: 8.0,
-                                    // start: 8.0,
-                                    // end: 8.0,
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            elevation: 0,
+                            clipBehavior: Clip.antiAlias,
+                            child: Container(
+                              width: width / 3,
+                              height: width / 3,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_2.png',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                width: width / 2,
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      // top: 8.0,
+                                      // start: 8.0,
+                                      // end: 8.0,
+                                      ),
+                                  child: Text(
+                                    item.subject,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                child: Text(
-                                  item.subject,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: width / 2,
-                              child: const Padding(
-                                padding: EdgeInsetsDirectional.only(
-                                  top: 8.0,
-                                  // start: 8.0,
-                                  // end: 8.0,
-                                ),
-                                child: Text(
-                                  "The video descpription descpription descpription descpription",
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 4,
+                              SizedBox(
+                                width: width / 2,
+                                child: const Padding(
+                                  padding: EdgeInsetsDirectional.only(
+                                    top: 8.0,
+                                    // start: 8.0,
+                                    // end: 8.0,
+                                  ),
+                                  child: Text(
+                                    "The video descpription descpription descpription descpription",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                            ],
+                          )
+                        ],
+                      ),
                     );
                   }).toList(),
                 ),

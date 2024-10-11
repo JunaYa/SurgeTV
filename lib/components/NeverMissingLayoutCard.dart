@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/model/home.dart';
+import 'package:surgetv/pages/video.dart';
 
 // 一定不能错过
 
@@ -48,75 +49,87 @@ class NeverMissingLayoutCard extends StatelessWidget {
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: category.data.map((VideoItem item) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Card(
-                          elevation: 0,
-                          clipBehavior: Clip.antiAlias,
-                          child: Container(
-                            width: (width - 58) / 2,
-                            height: (width - 58) * 2 / 3,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_6.png',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
+                    return GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(
+                              videoItem: item,
                             ),
                           ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.only(
-                                  // top: 8.0,
-                                  start: 8.0,
-                                  // end: 8.0,
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            elevation: 0,
+                            clipBehavior: Clip.antiAlias,
+                            child: Container(
+                              width: (width - 58) / 2,
+                              height: (width - 58) * 2 / 3,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_6.png',
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
-                                child: Text(
-                                  item.subject,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                    // top: 8.0,
+                                    start: 8.0,
+                                    // end: 8.0,
+                                  ),
+                                  child: Text(
+                                    item.subject,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(180, 100, 99, 99),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              margin:
-                                  const EdgeInsetsDirectional.only(start: 8.0),
-                              padding: const EdgeInsetsDirectional.only(
-                                top: 2.0,
-                                start: 6.0,
-                                end: 6.0,
-                                bottom: 2.0,
-                              ),
-                              child: const Text(
-                                "甜蜜",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 4,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color.fromARGB(255, 237, 170, 69),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(180, 100, 99, 99),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                margin: const EdgeInsetsDirectional.only(
+                                    start: 8.0),
+                                padding: const EdgeInsetsDirectional.only(
+                                  top: 2.0,
+                                  start: 6.0,
+                                  end: 6.0,
+                                  bottom: 2.0,
+                                ),
+                                child: const Text(
+                                  "甜蜜",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromARGB(255, 237, 170, 69),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                            ],
+                          )
+                        ],
+                      ),
                     );
                   }).toList(),
                 ),

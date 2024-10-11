@@ -6,6 +6,8 @@ import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
+import 'package:surgetv/model/video_detail.dart';
+import 'package:surgetv/pages/video.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -62,12 +64,14 @@ class _HomePageState extends State<HomePage> {
                 ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: width * 9 / 16),
                   child: Swiper(
-                    itemBuilder: (BuildContext context, int index) {
-                      return const BannerCard();
+                    itemBuilder: (BuildContext context, int idx) {
+                      return BannerCard(
+                        videoItem: dataList[index].data[idx],
+                      );
                     },
                     viewportFraction: 0.8,
                     scale: 0.9,
-                    itemCount: 3,
+                    itemCount: dataList[index].data.length,
                   ),
                 ),
               ],

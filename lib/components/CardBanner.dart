@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/model/home.dart';
+import 'package:surgetv/pages/video.dart';
 
 class BannerCard extends StatefulWidget {
-  const BannerCard({super.key});
+  const BannerCard({super.key, required this.videoItem});
+
+  final VideoItem videoItem;
 
   @override
   State<BannerCard> createState() => _BannerCardState();
@@ -32,7 +36,16 @@ class _BannerCardState extends State<BannerCard> {
                 alignment: AlignmentDirectional.bottomCenter,
                 margin: const EdgeInsets.only(bottom: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VideoPage(
+                          videoItem: widget.videoItem,
+                        ),
+                      ),
+                    );
+                  },
                   child: const Text('立即播放'),
                 ),
               ),

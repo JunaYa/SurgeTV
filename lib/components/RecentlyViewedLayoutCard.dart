@@ -1,6 +1,7 @@
 // 最近观看
 import 'package:flutter/material.dart';
 import 'package:surgetv/model/home.dart';
+import 'package:surgetv/pages/video.dart';
 
 class RecentlyViewedLayoutCard extends StatelessWidget {
   const RecentlyViewedLayoutCard(
@@ -50,56 +51,68 @@ class RecentlyViewedLayoutCard extends StatelessWidget {
                     itemExtent: width / 3,
                     shrinkExtent: width / 3,
                     children: category.data.map((VideoItem item) {
-                      return SizedBox(
-                        width: width / 4,
-                        height: width,
-                        child: Card(
-                          elevation: 0,
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: <Widget>[
-                              Stack(
-                                alignment: AlignmentDirectional.bottomStart,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: width / 3,
-                                    color: Colors.blue,
-                                    child: const Image(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_1.png'),
-                                    ),
-                                  ),
-                                  // player icon
-                                  Positioned(
-                                    left: 0,
-                                    top: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    child: Container(
-                                      alignment: AlignmentDirectional.center,
-                                      child: const Icon(
-                                        Icons.play_circle_fill,
-                                        color: Colors.white,
-                                        size: 40,
+                      return GestureDetector(
+                        onTap: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(
+                                videoItem: item,
+                              ),
+                            ),
+                          ),
+                        },
+                        child: SizedBox(
+                          width: width / 4,
+                          height: width,
+                          child: Card(
+                            elevation: 0,
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: <Widget>[
+                                Stack(
+                                  alignment: AlignmentDirectional.bottomStart,
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: width / 3,
+                                      color: Colors.blue,
+                                      child: const Image(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_1.png'),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                  padding: const EdgeInsetsDirectional.only(
-                                    top: 8.0,
-                                    // start: 8.0,
-                                    // end: 8.0,
-                                  ),
-                                  child: Text(
-                                    item.subject,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  )),
-                            ],
+                                    // player icon
+                                    Positioned(
+                                      left: 0,
+                                      top: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Container(
+                                        alignment: AlignmentDirectional.center,
+                                        child: const Icon(
+                                          Icons.play_circle_fill,
+                                          color: Colors.white,
+                                          size: 40,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                    padding: const EdgeInsetsDirectional.only(
+                                      top: 8.0,
+                                      // start: 8.0,
+                                      // end: 8.0,
+                                    ),
+                                    child: Text(
+                                      item.subject,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    )),
+                              ],
+                            ),
                           ),
                         ),
                       );
