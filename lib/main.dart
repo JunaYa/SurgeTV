@@ -93,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.gif),
-            label: 'Gif',
+            icon: const Icon(Icons.card_giftcard),
+            label: 'Gift',
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(

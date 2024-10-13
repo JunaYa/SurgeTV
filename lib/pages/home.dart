@@ -6,6 +6,7 @@ import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -48,7 +49,16 @@ class _HomePageState extends State<HomePage> {
         actions: const <Widget>[
           Padding(
             padding: EdgeInsetsDirectional.only(end: 16.0),
-            child: CircleAvatar(child: Icon(Icons.search)),
+            child: Row(
+              children: [
+                CircleAvatar(child: Icon(Icons.search)),
+                const SizedBox(width: 16),
+                CircleAvatar(child: Icon(Icons.card_giftcard)),
+                // Center(
+                //     child: Lottie.asset('assets/lotties/gift.json',
+                //         width: 24, height: 24)),
+              ],
+            ),
           ),
         ],
       ),
