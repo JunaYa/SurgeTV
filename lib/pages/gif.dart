@@ -28,11 +28,11 @@ class _GifPageState extends State<GifPage> {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text('ElevatedButton'),
+              child: const Text('ElevatedButton'),
             ),
             TextButton(
               onPressed: () {},
-              child: Text('TextButton'),
+              child: const Text('TextButton'),
             ),
           ],
         ),

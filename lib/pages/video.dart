@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/EmptyView.dart';
 import 'package:surgetv/components/FullScreenVideo.dart';
+import 'package:surgetv/components/PlayListBottomSheet.dart';
 import 'package:surgetv/dao/video_dao.dart';
 import 'package:surgetv/model/home.dart';
 import 'package:surgetv/model/video_detail.dart';
@@ -33,7 +35,7 @@ class _VideoPageState extends State<VideoPage> {
     final pageIndex = _pageController.page?.round();
     if (pageIndex != null && pageIndex != currentPageIndex) {
       currentPageIndex = pageIndex;
-      print('=========> currentPageIndex: ${currentPageIndex}');
+      print('=========> currentPageIndex: $currentPageIndex');
       if (currentPageIndex == videoDataList.length - 2) {
         loadData(true);
       }
@@ -186,40 +188,6 @@ class _VideoPlayerFullPageState extends State<VideoPlayerFullPage> {
     print('=====> 点击了点赞');
   }
 
-  ///分享
-  Future<void> onShareClick(VideoData videoData) async {
-    print('=====> 点击了分享');
-  }
-
-  Widget _EmptyView() {
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: const Color(0x80444444),
-      ),
-      child: const Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Icon(
-            Icons.error_outline,
-            size: 50,
-          ),
-          SizedBox(
-            height: 70,
-          ),
-          Text(
-            '无数据',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -227,7 +195,7 @@ class _VideoPlayerFullPageState extends State<VideoPlayerFullPage> {
       height: widget.size.height,
       width: widget.size.width,
       child: widget.videoData == null
-          ? _EmptyView()
+          ? const EmptyView()
           : GestureDetector(
               onTap: () {
                 print('============>视频点击 ');
@@ -488,64 +456,20 @@ class _VideoPlayerFullPageState extends State<VideoPlayerFullPage> {
       ),
       enableDrag: true,
       isScrollControlled: true,
-      builder: (_) => PlayListBottomSheet(
-        videoData: videoData,
+      builder: (_) => const PlayListBottomSheet(
+        list: [],
       ),
     );
   }
 }
 
 // 视频分集展示
-class PlayListBottomSheet extends StatefulWidget {
-  final VideoData videoData;
-
-  const PlayListBottomSheet({
-    super.key,
-    required this.videoData,
-  });
-
-  @override
-  State<PlayListBottomSheet> createState() => _PlayListBottomSheetState();
-}
-
-class _PlayListBottomSheetState extends State<PlayListBottomSheet> {
-  VideoData? videoData;
-  TextEditingController textEditingController = TextEditingController();
-  FocusNode focusNode = FocusNode();
-  @override
-  void initState() {
-    videoData = widget.videoData;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500,
-      child: Stack(
-        children: [
-          // 评论列表
-          Padding(
-            padding: const EdgeInsets.only(top: 60, bottom: 70),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 3, // 分集接口
-              itemBuilder: (BuildContext context, int index) {
-                return Text("data");
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 List<VideoData> testVideoData = [
   VideoData(
     id: 1,
     video: "https://www.runoob.com/try/demo_source/movie.mp4",
-    albumImg: "https://via.placeholder.com/350x150",
+    albumImg: "http://8.141.13.174/v/x01.png",
     likes: "100",
     likeStatus: "1",
     buyFlag: 1,

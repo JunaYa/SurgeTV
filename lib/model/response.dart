@@ -1,6 +1,7 @@
 /// response data
 /// Created by Arjun
 /// on 2024/10/8.
+library;
 import 'package:json_annotation/json_annotation.dart';
 
 part 'response.g.dart';

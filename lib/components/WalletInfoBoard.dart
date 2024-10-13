@@ -1,9 +1,10 @@
 /// WalletInfoBoard is a StatelessWidget that displays the user's wallet information.
+library;
 
 import 'package:flutter/material.dart';
 
 class WalletInfoBoard extends StatelessWidget {
-  const WalletInfoBoard({Key? key}) : super(key: key);
+  const WalletInfoBoard({super.key});
 
   @override
   Widget build(BuildContext context) {

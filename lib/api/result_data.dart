@@ -1,6 +1,7 @@
 /// response data
 /// Created by Arjun
 /// on 2024/9/30.
+library;
 
 class ResultData {
   // int? code;

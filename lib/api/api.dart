@@ -77,7 +77,6 @@ class HttpManager {
     if (response.data is DioException) {
       return resultError(response.data);
     }
-    print('-------result ${response.data}');
     return response.data;
   }
 

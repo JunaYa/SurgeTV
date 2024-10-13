@@ -18,6 +18,9 @@ class ResponseInterceptors extends InterceptorsWrapper {
       } else if (response.statusCode! >= 200 && response.statusCode! < 300) {
         value = ResultData(response.data, true, Code.SUCCESS,
             headers: response.headers);
+      } else {
+        value = ResultData(response.data, false, response.statusCode,
+            headers: response.headers);
       }
     } catch (e) {
       if (kDebugMode) {
