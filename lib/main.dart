@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/pages/discover.dart';
-import 'package:surgetv/pages/gif.dart';
+import 'package:surgetv/pages/gift.dart';
 import 'package:surgetv/pages/home.dart';
 import 'package:surgetv/pages/person.dart';
 
