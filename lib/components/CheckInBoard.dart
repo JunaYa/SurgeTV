@@ -73,6 +73,17 @@ class _CheckInBoardState extends State<CheckInBoard> {
     return false;
   }
 
+  // 连续签到天数
+  int _getContinuousCheckInDays() {
+    int count = 0;
+    for (var day in rewardMap) {
+      if (day['isToday'] == true) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   void _handleCheckIn() {
     // 已签到，不做处理
     if (_isCheckedIn()) {
@@ -182,13 +193,14 @@ class _CheckInBoardState extends State<CheckInBoard> {
           ),
           child: Column(
             children: [
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.calendar_month, color: Colors.yellow, size: 16),
-                  SizedBox(width: 4),
+                  const Icon(Icons.calendar_month,
+                      color: Colors.yellow, size: 16),
+                  const SizedBox(width: 4),
                   Text(
-                    '连续签到',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    '连续签到${_getContinuousCheckInDays()}天',
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
