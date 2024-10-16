@@ -310,10 +310,10 @@ class _VideoPlayerFullPageState extends State<VideoPlayerFullPage> {
           const SizedBox(
             height: 5,
           ),
-          Text(
+          const Text(
             // videoData.likes,
             "111",
-            style: const TextStyle(
+            style: TextStyle(
                 color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
           )
         ],

@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: [
                 CircleAvatar(child: Icon(Icons.search)),
-                const SizedBox(width: 16),
+                SizedBox(width: 16),
                 CircleAvatar(child: Icon(Icons.card_giftcard)),
                 // Center(
                 //     child: Lottie.asset('assets/lotties/gift.json',
