@@ -84,6 +84,16 @@ class _CheckInBoardState extends State<CheckInBoard> {
     return count;
   }
 
+  // 获取当前签到奖励
+  int _getCurrentReward() {
+    for (var day in rewardMap) {
+      if (day['isToday'] == true) {
+        return day['reward'] as int;
+      }
+    }
+    return 0;
+  }
+
   void _handleCheckIn() {
     // 已签到，不做处理
     if (_isCheckedIn()) {
@@ -99,64 +109,7 @@ class _CheckInBoardState extends State<CheckInBoard> {
     setState(() {
       rewardMap = rewardMap;
     });
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 237, 138, 138),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('恭喜获得',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  )),
-              const SizedBox(height: 15),
-              Container(
-                padding: const EdgeInsets.only(left: 36, right: 36),
-                margin: const EdgeInsets.only(bottom: 8),
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 255, 69, 59),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.play_arrow, color: Colors.white),
-                      SizedBox(width: 4),
-                      Text(
-                        '再得2币',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    _showCheckInDialog(context, reward: _getCurrentReward());
   }
 
   @override
@@ -251,7 +204,6 @@ class _CheckInBoardState extends State<CheckInBoard> {
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.only(left: 36, right: 36),
-                margin: const EdgeInsets.only(bottom: 8),
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
@@ -270,6 +222,7 @@ class _CheckInBoardState extends State<CheckInBoard> {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
@@ -280,4 +233,100 @@ class _CheckInBoardState extends State<CheckInBoard> {
       ],
     );
   }
+}
+
+_showCheckInDialog(BuildContext context, {required int reward}) {
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => Dialog(
+      backgroundColor: Colors.transparent,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                //
+                SizedBox(
+                  height: 240,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 237, 138, 138),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const SizedBox(height: 24),
+                        Text(
+                          '恭喜获得${reward}T币',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 38),
+                        Container(
+                          padding: const EdgeInsets.only(left: 36, right: 36),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 69, 59),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.video_camera_back,
+                                    color: Colors.white),
+                                SizedBox(width: 8),
+                                Text(
+                                  '再得2币',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -120,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    width: 140,
+                    height: 140,
+                    child: Image.asset('assets/icons/icon_checkin_success.png'),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            // close icon button
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.close_rounded, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
