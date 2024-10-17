@@ -226,10 +226,6 @@ class _CheckInBoardState extends State<CheckInBoard> {
             ],
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: const Text('TextButton'),
-        ),
       ],
     );
   }
