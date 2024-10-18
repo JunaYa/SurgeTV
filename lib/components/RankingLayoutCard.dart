@@ -76,10 +76,9 @@ class RankingLayoutCard extends StatelessWidget {
                                       width: double.infinity,
                                       height: width / 3,
                                       color: Colors.blue,
-                                      child: const Image(
+                                      child: Image(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            'https://flutter.github.io/assets-for-api-docs/assets/material/content_based_color_scheme_3.png'),
+                                        image: NetworkImage(item.img),
                                       ),
                                     ),
                                     // player icon
@@ -124,24 +123,4 @@ class RankingLayoutCard extends StatelessWidget {
       ),
     );
   }
-}
-
-enum ImageInfo {
-  image0('The Flow', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_1.png'),
-  image1('Through the Pane', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_2.png'),
-  image2('Iridescence', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_3.png'),
-  image3('Sea Change', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_4.png'),
-  image4('Blue Symphony', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_5.png'),
-  image5('When It Rains', 'Sponsored | Season 1 Now Streaming',
-      'content_based_color_scheme_6.png');
-
-  const ImageInfo(this.title, this.subtitle, this.url);
-  final String title;
-  final String subtitle;
-  final String url;
 }

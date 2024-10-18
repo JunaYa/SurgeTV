@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/GradientButton.dart';
 import 'package:surgetv/model/home.dart';
 import 'package:surgetv/pages/video.dart';
 
@@ -28,25 +29,51 @@ class _BannerCardState extends State<BannerCard> {
                 height: width * 16 / 9,
                 color: Colors.blue,
                 child: Image.network(
-                  "https://via.placeholder.com/350x150",
+                  widget.videoItem.img,
                   fit: BoxFit.fill,
                 ),
               ),
               Container(
                 alignment: AlignmentDirectional.bottomCenter,
                 margin: const EdgeInsets.only(bottom: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VideoPage(
-                          videoItem: widget.videoItem,
+                child: SizedBox(
+                  width: width * 6 / 16,
+                  child: GradientButton(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 32, vertical: 4),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 230, 87, 148),
+                        Color.fromARGB(255, 233, 40, 88),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VideoPage(
+                            videoItem: widget.videoItem,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: const Text('立即播放'),
+                      );
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.play_arrow, size: 24, color: Colors.white),
+                        Text(
+                          '立即播放',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
