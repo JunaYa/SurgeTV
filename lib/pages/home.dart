@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:lottie/lottie.dart';
 import 'package:surgetv/components/CardBanner.dart';
+import 'package:surgetv/components/GiftButton.dart';
 import 'package:surgetv/components/HotVideosLayoutCard.dart';
 import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
-import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -44,19 +45,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
         leading: const Icon(Icons.cast),
-        actions: const <Widget>[
+        actions: <Widget>[
           Padding(
-            padding: EdgeInsetsDirectional.only(end: 16.0),
+            padding: const EdgeInsetsDirectional.only(end: 16.0),
             child: Row(
               children: [
-                CircleAvatar(child: Icon(Icons.search)),
-                SizedBox(width: 16),
-                CircleAvatar(child: Icon(Icons.card_giftcard)),
-                // Center(
-                //     child: Lottie.asset('assets/lotties/gift.json',
-                //         width: 24, height: 24)),
+                const Icon(
+                  Icons.search,
+                  color: Colors.red,
+                  size: 32,
+                ),
+                const SizedBox(width: 16),
+                Lottie.asset(
+                  "assets/lotties/gift.json",
+                  height: 52,
+                  width: 52,
+                ),
               ],
             ),
           ),

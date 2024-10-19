@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:surgetv/pages/discover.dart';
 import 'package:surgetv/pages/gift.dart';
 import 'package:surgetv/pages/home.dart';
@@ -93,7 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.card_giftcard),
+            icon: Lottie.asset(
+              "assets/lotties/gift.json",
+              height: 38,
+              width: 38,
+            ),
             label: 'Gift',
             backgroundColor: Theme.of(context).primaryColor,
           ),
