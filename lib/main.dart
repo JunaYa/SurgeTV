@@ -1,116 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:surgetv/pages/discover.dart';
-import 'package:surgetv/pages/gift.dart';
+import 'package:surgetv/config/constants.dart';
 import 'package:surgetv/pages/home.dart';
-import 'package:surgetv/pages/person.dart';
+import 'package:surgetv/pages/setting.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  State<App> createState() => _AppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class _AppState extends State<App> {
+  bool useMaterial3 = true;
+  ThemeMode themeMode = ThemeMode.system;
+  ColorSeed colorSelected = ColorSeed.baseColor;
+  ColorImageProvider imageSelected = ColorImageProvider.leaves;
+  ColorScheme? imageColorScheme = const ColorScheme.light();
+  ColorSelectionMethod colorSelectionMethod = ColorSelectionMethod.colorSeed;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  bool get useLightMode => switch (themeMode) {
+        ThemeMode.system =>
+          View.of(context).platformDispatcher.platformBrightness ==
+              Brightness.light,
+        ThemeMode.light => true,
+        ThemeMode.dark => false,
+      };
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  static const List<Widget> _pages = <Widget>[
-    HomePage(title: "Home"),
-    DiscoverPage(title: "Discover"),
-    GifPage(title: "Gif"),
-    PersonPage(title: "Person"),
-  ];
-
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
+  void handleBrightnessChange(bool useLightMode) {
     setState(() {
-      _selectedIndex = index;
+      themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
+    });
+  }
+
+  void handleMaterialVersionChange() {
+    setState(() {
+      useMaterial3 = !useMaterial3;
+    });
+  }
+
+  void handleColorSelect(int value) {
+    setState(() {
+      colorSelectionMethod = ColorSelectionMethod.colorSeed;
+      colorSelected = ColorSeed.values[value];
+    });
+  }
+
+  void handleImageSelect(int value) {
+    final String url = ColorImageProvider.values[value].url;
+    ColorScheme.fromImageProvider(provider: NetworkImage(url))
+        .then((newScheme) {
+      setState(() {
+        colorSelectionMethod = ColorSelectionMethod.image;
+        imageSelected = ColorImageProvider.values[value];
+        imageColorScheme = newScheme;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'SurgeTV',
+      themeMode: themeMode,
+      theme: ThemeData(
+        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
+            ? colorSelected.color
+            : null,
+        colorScheme: colorSelectionMethod == ColorSelectionMethod.image
+            ? imageColorScheme
+            : null,
+        useMaterial3: useMaterial3,
+        brightness: Brightness.light,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.play_arrow),
-            label: 'Discover',
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Lottie.asset(
-              "assets/lotties/gift.json",
-              height: 38,
-              width: 38,
-            ),
-            label: 'Gift',
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
-            label: 'Person',
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Theme.of(context).primaryColorLight,
+      darkTheme: ThemeData(
+        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
+            ? colorSelected.color
+            : imageColorScheme!.primary,
+        useMaterial3: useMaterial3,
+        brightness: Brightness.dark,
+      ),
+      home: SettingPage(
+        useLightMode: useLightMode,
+        useMaterial3: useMaterial3,
+        colorSelected: colorSelected,
+        imageSelected: imageSelected,
+        handleBrightnessChange: handleBrightnessChange,
+        handleMaterialVersionChange: handleMaterialVersionChange,
+        handleColorSelect: handleColorSelect,
+        handleImageSelect: handleImageSelect,
+        colorSelectionMethod: colorSelectionMethod,
       ),
     );
   }

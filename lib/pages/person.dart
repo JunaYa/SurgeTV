@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
+import 'package:surgetv/config/constants.dart';
 import 'package:surgetv/pages/login.dart';
+import 'package:surgetv/pages/setting.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key, required this.title});
@@ -143,10 +145,10 @@ class _PersonPageState extends State<PersonPage> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 // 兑换码
-                Row(
+                const Row(
                   children: <Widget>[
                     Expanded(
                       child: Row(
@@ -176,9 +178,9 @@ class _PersonPageState extends State<PersonPage> {
                     ),
                   ],
                 ),
-                DividerWidget(),
+                const DividerWidget(),
                 // 意见反馈
-                Row(
+                const Row(
                   children: <Widget>[
                     Expanded(
                       child: Row(
@@ -208,41 +210,55 @@ class _PersonPageState extends State<PersonPage> {
                     ),
                   ],
                 ),
-                DividerWidget(),
+                const DividerWidget(),
                 // 设置
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.settings_outlined,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          Padding(
-                              padding: EdgeInsetsDirectional.only(end: 16.0)),
-                          Text(
-                            '设置',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                      // MaterialPageRoute(
+                      //     builder: (context) => SettingPage(
+                      //           useLightMode: true,
+                      //           useMaterial3: true,
+                      //           colorSelected: ColorSeed.blue,
+                      //           imageSelected: ColorImageProvider.none, handleBrightnessChange: (bool useLightMode) {  },
+                      //         )),
+                    // );
+                  },
+                  child: const Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.settings_outlined,
+                              size: 24,
+                              color: Colors.black,
                             ),
-                          ),
-                        ],
+                            Padding(
+                                padding: EdgeInsetsDirectional.only(end: 16.0)),
+                            Text(
+                              '设置',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    // arrow right icon
-                    Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                      // arrow right icon
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        size: 24,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
                 ),
-                DividerWidget(),
+                const DividerWidget(),
                 // 关于
-                Row(
+                const Row(
                   children: <Widget>[
                     Expanded(
                       child: Row(

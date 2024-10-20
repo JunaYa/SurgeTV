@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:lottie/lottie.dart';
-import 'package:surgetv/components/CardBanner.dart';
-import 'package:surgetv/components/GiftButton.dart';
-import 'package:surgetv/components/HotVideosLayoutCard.dart';
-import 'package:surgetv/components/NeverMissingLayoutCard.dart';
-import 'package:surgetv/components/RankingLayoutCard.dart';
-import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
-import 'package:surgetv/dao/home_dao.dart';
+import 'package:surgetv/pages/index.dart';
+import 'package:surgetv/pages/discover.dart';
+import 'package:surgetv/pages/gift.dart';
+import 'package:surgetv/pages/person.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
 
   final String title;
 
@@ -19,113 +24,57 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List dataList = [];
-  bool isLoading = true;
+  static const List<Widget> _pages = <Widget>[
+    IndexPage(title: "Home"),
+    DiscoverPage(title: "Discover"),
+    GifPage(title: "Gift"),
+    PersonPage(title: "Person"),
+  ];
 
-  void _fetchData() async {
-    var res = await HomeDao.home();
-    if (res.result) {
-      setState(() {
-        dataList.addAll(res.data);
-        isLoading = false;
-      });
-    }
-  }
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _fetchData();
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.sizeOf(context).width;
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: const Icon(Icons.cast),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsetsDirectional.only(end: 16.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.search,
-                  color: Colors.red,
-                  size: 32,
-                ),
-                const SizedBox(width: 16),
-                Lottie.asset(
-                  "assets/lotties/gift.json",
-                  height: 52,
-                  width: 52,
-                ),
-              ],
+      body: Center(
+        child: _pages.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.play_arrow),
+            label: 'Discover',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: Lottie.asset(
+              "assets/lotties/gift.json",
+              height: 38,
+              width: 38,
             ),
+            label: 'Gift',
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: 'Person',
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         ],
-      ),
-      body: ListView.builder(
-        itemCount: dataList.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Column(
-              children: [
-                const SizedBox(height: 20),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: width * 9 / 16),
-                  child: Swiper(
-                    itemBuilder: (BuildContext context, int idx) {
-                      return BannerCard(
-                        videoItem: dataList[index].data[idx],
-                      );
-                    },
-                    viewportFraction: 0.8,
-                    scale: 0.9,
-                    itemCount: dataList[index].data.length,
-                  ),
-                ),
-              ],
-            );
-          } else if (index == 1) {
-            return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 2) {
-            return HotVideoLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 3) {
-            return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 4) {
-            return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 5) {
-            return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 6) {
-            return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else {
-            return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          }
-        },
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Theme.of(context).primaryColorLight,
       ),
     );
   }

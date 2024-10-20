@@ -48,14 +48,14 @@ class _ShopPageState extends State<ShopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 33, 32, 32),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('商店'),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : Container(
               height: double.infinity,
-              color: const Color.fromARGB(255, 33, 32, 32),
+              // color: const Color.fromARGB(255, 33, 32, 32),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
