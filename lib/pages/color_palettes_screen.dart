@@ -1,7 +1,3 @@
-// Copyright 2021 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/scheme.dart';
@@ -14,9 +10,14 @@ const Widget divider = SizedBox(height: 10);
 // be displayed in a row.
 const double narrowScreenWidthThreshold = 500;
 
-class ColorPalettesScreen extends StatelessWidget {
+class ColorPalettesScreen extends StatefulWidget {
   const ColorPalettesScreen({super.key});
 
+  @override
+  State<ColorPalettesScreen> createState() => _ColorPalettesScreenState();
+}
+
+class _ColorPalettesScreenState extends State<ColorPalettesScreen> {
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;

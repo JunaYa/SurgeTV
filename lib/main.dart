@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/config/constants.dart';
-import 'package:surgetv/pages/home.dart';
-import 'package:surgetv/pages/setting.dart';
+import 'package:surgetv/pages/index.dart';
 
 void main() {
   runApp(const App());
@@ -85,7 +84,7 @@ class _AppState extends State<App> {
         useMaterial3: useMaterial3,
         brightness: Brightness.dark,
       ),
-      home: SettingPage(
+      home: IndexPage(
         useLightMode: useLightMode,
         useMaterial3: useMaterial3,
         colorSelected: colorSelected,

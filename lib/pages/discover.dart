@@ -6,9 +6,7 @@ import 'package:surgetv/model/discover.dart';
 import 'package:video_player/video_player.dart';
 
 class DiscoverPage extends StatefulWidget {
-  const DiscoverPage({super.key, required this.title});
-
-  final String title;
+  const DiscoverPage({super.key});
 
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();

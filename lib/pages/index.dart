@@ -1,131 +1,224 @@
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
-import 'package:lottie/lottie.dart';
-import 'package:surgetv/components/CardBanner.dart';
-import 'package:surgetv/components/HotVideosLayoutCard.dart';
-import 'package:surgetv/components/NeverMissingLayoutCard.dart';
-import 'package:surgetv/components/RankingLayoutCard.dart';
-import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
-import 'package:surgetv/dao/home_dao.dart';
+import 'package:surgetv/components/Transition.dart';
+import 'package:surgetv/components/NavigationBars.dart';
+import 'package:surgetv/components/NavigationDrawer.dart';
+import 'package:surgetv/config/constants.dart';
+import 'package:surgetv/pages/discover.dart';
+import 'package:surgetv/pages/gift.dart';
+import 'package:surgetv/pages/home.dart';
+import 'package:surgetv/pages/person.dart';
 
 class IndexPage extends StatefulWidget {
-  const IndexPage({super.key, required this.title});
+  const IndexPage({
+    super.key,
+    required this.useLightMode,
+    required this.useMaterial3,
+    required this.colorSelected,
+    required this.handleBrightnessChange,
+    required this.handleMaterialVersionChange,
+    required this.handleColorSelect,
+    required this.handleImageSelect,
+    required this.colorSelectionMethod,
+    required this.imageSelected,
+  });
 
-  final String title;
+  final bool useLightMode;
+  final bool useMaterial3;
+  final ColorSeed colorSelected;
+  final ColorImageProvider imageSelected;
+  final ColorSelectionMethod colorSelectionMethod;
+
+  final void Function(bool useLightMode) handleBrightnessChange;
+  final void Function() handleMaterialVersionChange;
+  final void Function(int value) handleColorSelect;
+  final void Function(int value) handleImageSelect;
 
   @override
   State<IndexPage> createState() => _IndexPageState();
 }
 
-class _IndexPageState extends State<IndexPage> {
-  final List dataList = [];
-  bool isLoading = true;
+class _IndexPageState extends State<IndexPage>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  late final AnimationController controller;
+  late final CurvedAnimation railAnimation;
+  bool controllerInitialized = false;
+  bool showMediumSizeLayout = false;
+  bool showLargeSizeLayout = false;
 
-  void _fetchData() async {
-    var res = await HomeDao.home();
-    if (res.result) {
-      setState(() {
-        dataList.addAll(res.data);
-        isLoading = false;
-      });
+  int screenIndex = ScreenSelected.home.value;
+
+  @override
+  initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(milliseconds: transitionLength.toInt() * 2),
+      value: 0,
+      vsync: this,
+    );
+    railAnimation = CurvedAnimation(
+      parent: controller,
+      curve: const Interval(0.5, 1.0),
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final double width = MediaQuery.of(context).size.width;
+    final AnimationStatus status = controller.status;
+    if (width > mediumWidthBreakpoint) {
+      if (width > largeWidthBreakpoint) {
+        showMediumSizeLayout = false;
+        showLargeSizeLayout = true;
+      } else {
+        showMediumSizeLayout = true;
+        showLargeSizeLayout = false;
+      }
+      if (status != AnimationStatus.forward &&
+          status != AnimationStatus.completed) {
+        controller.forward();
+      }
+    } else {
+      showMediumSizeLayout = false;
+      showLargeSizeLayout = false;
+      if (status != AnimationStatus.reverse &&
+          status != AnimationStatus.dismissed) {
+        controller.reverse();
+      }
+    }
+    if (!controllerInitialized) {
+      controllerInitialized = true;
+      controller.value = width > mediumWidthBreakpoint ? 1 : 0;
     }
   }
+
+  void handleScreenChanged(int screenSelected) {
+    setState(() {
+      screenIndex = screenSelected;
+    });
+  }
+
+  Widget createScreenFor(
+    ScreenSelected screenSelected,
+    bool showNavBarExample,
+  ) =>
+      switch (screenSelected) {
+        ScreenSelected.home => const HomePage(),
+        ScreenSelected.discover => const DiscoverPage(),
+        ScreenSelected.gift => const GiftPage(),
+        ScreenSelected.person => const PersonPage(),
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        return NavigationTransition(
+          scaffoldKey: scaffoldKey,
+          animationController: controller,
+          railAnimation: railAnimation,
+          appBar: AppBar(
+            title: const Text('SurgeTV'),
+          ),
+          body: createScreenFor(
+              ScreenSelected.values[screenIndex], controller.value == 1),
+          navigationBar: NavigationBars(
+            onSelectItem: (index) {
+              setState(() {
+                screenIndex = index;
+                handleScreenChanged(screenIndex);
+              });
+            },
+            selectedIndex: screenIndex,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class NavigationTransition extends StatefulWidget {
+  const NavigationTransition(
+      {super.key,
+      required this.scaffoldKey,
+      required this.animationController,
+      required this.railAnimation,
+      required this.navigationBar,
+      required this.appBar,
+      required this.body});
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final AnimationController animationController;
+  final CurvedAnimation railAnimation;
+  final Widget navigationBar;
+  final PreferredSizeWidget appBar;
+  final Widget body;
+
+  @override
+  State<NavigationTransition> createState() => _NavigationTransitionState();
+}
+
+class _NavigationTransitionState extends State<NavigationTransition> {
+  late final AnimationController controller;
+  late final CurvedAnimation railAnimation;
+  late final ReverseAnimation barAnimation;
+  bool controllerInitialized = false;
+  bool showDivider = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchData();
+
+    controller = widget.animationController;
+    railAnimation = widget.railAnimation;
+
+    barAnimation = ReverseAnimation(
+      CurvedAnimation(
+        parent: controller,
+        curve: const Interval(0.0, 0.5),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.sizeOf(context).width;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: const Icon(Icons.cast),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsetsDirectional.only(end: 16.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.search,
-                  color: Colors.red,
-                  size: 32,
-                ),
-                const SizedBox(width: 16),
-                Lottie.asset(
-                  "assets/lotties/gift.json",
-                  height: 52,
-                  width: 52,
-                ),
-              ],
-            ),
-          ),
-        ],
+      key: widget.scaffoldKey,
+      appBar: widget.appBar,
+      body: widget.body,
+      bottomNavigationBar: BarTransition(
+        animation: barAnimation,
+        backgroundColor: colorScheme.surface,
+        child: widget.navigationBar,
       ),
-      body: ListView.builder(
-        itemCount: dataList.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Column(
-              children: [
-                const SizedBox(height: 20),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: width * 9 / 16),
-                  child: Swiper(
-                    itemBuilder: (BuildContext context, int idx) {
-                      return BannerCard(
-                        videoItem: dataList[index].data[idx],
-                      );
-                    },
-                    viewportFraction: 0.8,
-                    scale: 0.9,
-                    itemCount: dataList[index].data.length,
-                  ),
-                ),
-              ],
-            );
-          } else if (index == 1) {
-            return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 2) {
-            return HotVideoLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 3) {
-            return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 4) {
-            return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 5) {
-            return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else if (index == 6) {
-            return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          } else {
-            return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
-            );
-          }
-        },
-      ),
+      endDrawer: const NavigationDrawerSection(),
     );
   }
 }
+
+final List<NavigationRailDestination> navRailDestinations = appBarDestinations
+    .map(
+      (destination) => NavigationRailDestination(
+        icon: Tooltip(
+          message: destination.label,
+          child: destination.icon,
+        ),
+        selectedIcon: Tooltip(
+          message: destination.label,
+          child: destination.selectedIcon,
+        ),
+        label: Text(destination.label),
+      ),
+    )
+    .toList();

@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/CheckInBoard.dart';
 
-class GifPage extends StatefulWidget {
-  const GifPage({super.key, required this.title});
-
-  final String title;
+class GiftPage extends StatefulWidget {
+  const GiftPage({super.key});
 
   @override
-  State<GifPage> createState() => _GifPageState();
+  State<GiftPage> createState() => _GiftPageState();
 }
 
-class _GifPageState extends State<GifPage> {
+class _GiftPageState extends State<GiftPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        // title: Text(widget.title),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        color: Theme.of(context).colorScheme.secondary,
-        child: ListView(
-          children: const [
-            CheckInBoard(),
-            SizedBox(height: 16),
-            MoreGift(),
-            SizedBox(height: 16),
-            OtherWelfare(),
-          ],
-        ),
+    return Expanded(
+      child: ListView(
+        children: const [
+          CheckInBoard(),
+          SizedBox(height: 16),
+          MoreGift(),
+          SizedBox(height: 16),
+          OtherWelfare(),
+        ],
       ),
     );
   }

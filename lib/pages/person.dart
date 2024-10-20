@@ -5,9 +5,7 @@ import 'package:surgetv/pages/login.dart';
 import 'package:surgetv/pages/setting.dart';
 
 class PersonPage extends StatefulWidget {
-  const PersonPage({super.key, required this.title});
-
-  final String title;
+  const PersonPage({super.key});
 
   @override
   State<PersonPage> createState() => _PersonPageState();
@@ -16,12 +14,8 @@ class PersonPage extends StatefulWidget {
 class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: ListView(
+    return Expanded(
+      child: ListView(
         // left / right padding 16
         padding: const EdgeInsets.only(left: 16, right: 16),
         children: [
@@ -216,13 +210,13 @@ class _PersonPageState extends State<PersonPage> {
                   onTap: () {
                     // Navigator.push(
                     //   context,
-                      // MaterialPageRoute(
-                      //     builder: (context) => SettingPage(
-                      //           useLightMode: true,
-                      //           useMaterial3: true,
-                      //           colorSelected: ColorSeed.blue,
-                      //           imageSelected: ColorImageProvider.none, handleBrightnessChange: (bool useLightMode) {  },
-                      //         )),
+                    // MaterialPageRoute(
+                    //     builder: (context) => SettingPage(
+                    //           useLightMode: true,
+                    //           useMaterial3: true,
+                    //           colorSelected: ColorSeed.blue,
+                    //           imageSelected: ColorImageProvider.none, handleBrightnessChange: (bool useLightMode) {  },
+                    //         )),
                     // );
                   },
                   child: const Row(
