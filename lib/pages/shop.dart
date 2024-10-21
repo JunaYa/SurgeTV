@@ -48,165 +48,106 @@ class _ShopPageState extends State<ShopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('商店'),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : Container(
-              height: double.infinity,
-              // color: const Color.fromARGB(255, 33, 32, 32),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Featured Items Grid Section
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 16,
-                              crossAxisSpacing: 16,
-                              childAspectRatio: 1.5,
-                            ),
-                            itemCount:
-                                _productList.length, // Number of grid items
-                            itemBuilder: (context, index) {
-                              // 普通商品
-                              if (_productList[index].type ==
-                                  ShopItemType.normal) {
-                                return ShopItem(
-                                  price:
-                                      '${_productList[index].price}${_productList[index].currency}',
-                                  tips: '仅限一次',
-                                  benefit: '${_productList[index].coinNum}币',
-                                  selected: _currentSelect == index,
-                                  onPressed: () {
-                                    setState(() {
-                                      _currentSelect = index;
-                                    });
-                                  },
-                                );
-                              }
-                              // vip商品
-                              if (_productList[index].type ==
-                                  ShopItemType.vip) {
-                                return ShopVipItem(
-                                  name: _productList[index].name,
-                                  price:
-                                      '${_productList[index].price}${_productList[index].currency}',
-                                  benefit: '30天全场免费看',
-                                  selected: _currentSelect == index,
-                                  onPressed: () {
-                                    setState(() {
-                                      _currentSelect = index;
-                                    });
-                                  },
-                                );
-                              }
-                            },
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Featured Items Grid Section
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            childAspectRatio: 1.5,
                           ),
+                          itemCount:
+                              _productList.length, // Number of grid items
+                          itemBuilder: (context, index) {
+                            // 普通商品
+                            if (_productList[index].type ==
+                                ShopItemType.normal) {
+                              return ShopItem(
+                                price:
+                                    '${_productList[index].price}${_productList[index].currency}',
+                                tips: '仅限一次',
+                                benefit: '${_productList[index].coinNum}币',
+                                selected: _currentSelect == index,
+                                onPressed: () {
+                                  setState(() {
+                                    _currentSelect = index;
+                                  });
+                                },
+                              );
+                            }
+                            // vip商品
+                            if (_productList[index].type == ShopItemType.vip) {
+                              return ShopVipItem(
+                                name: _productList[index].name,
+                                price:
+                                    '${_productList[index].price}${_productList[index].currency}',
+                                benefit: '30天全场免费看',
+                                selected: _currentSelect == index,
+                                onPressed: () {
+                                  setState(() {
+                                    _currentSelect = index;
+                                  });
+                                },
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  // 立即充值按钮
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: GradientButton(
+                      onPressed: () {},
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 230, 45, 32),
+                          Color.fromARGB(255, 233, 40, 88),
                         ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ),
-                    // 立即充值按钮
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(left: 16, right: 16),
-                      margin: const EdgeInsets.only(bottom: 16),
-                      child: GradientButton(
-                        onPressed: () {},
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 230, 45, 32),
-                            Color.fromARGB(255, 233, 40, 88),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        child: const Text(
-                          '立即充值',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // 开通前请阅读
-                    Container(
-                      padding: const EdgeInsets.only(left: 16, right: 16),
                       child: const Text(
-                        '开通前请阅读《会员服务协议》及《自动续费付费规则》',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        '立即充值',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    // 充值声明
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '充值声明:',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          Text(
-                            '1.月度会员和年度会员均支持自动续费，续费周期为1个月或1年。自动扣费用户可以在 App Store 中关闭自动续费。',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          Text(
-                            '2.T 币值可解锁单集视频，解锁价格以具体视频为准，。',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          // 3.
-                          Text(
-                            '3.VIP 可解锁全集视频，会员有效期内免费观看。会员到期后以 T 币值解锁。',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          // 4.
-                          Text(
-                            '4.充值所有内容为虚拟物品，不支持退款。',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  // 开通前请阅读
+                  Container(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: const Text(
+                      '开通前请阅读《会员服务协议》及《自动续费付费规则》',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 24),
+                  // 充值声明
+
+                  const RechargeDeclaration(),
+                ],
               ),
             ),
     );
@@ -263,9 +204,9 @@ class ShopVipItem extends StatelessWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 26, 25, 25),
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
@@ -283,10 +224,10 @@ class ShopVipItem extends StatelessWidget {
                     ),
                     Text(
                       price,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                   ],
                 ),
@@ -298,7 +239,7 @@ class ShopVipItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: selected
                     ? Colors.transparent
-                    : const Color.fromARGB(255, 50, 48, 48),
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
@@ -307,7 +248,10 @@ class ShopVipItem extends StatelessWidget {
               child: Text(
                 benefit,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 14, color: Colors.white),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
               ),
             ),
           ],
@@ -340,7 +284,7 @@ class ShopItem extends StatelessWidget {
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           gradient: selected
-              ? LinearGradient(
+              ? const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 230, 45, 32),
                     Color.fromARGB(255, 233, 40, 88),
@@ -348,7 +292,7 @@ class ShopItem extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 )
-              : LinearGradient(
+              : const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 242, 219, 47),
                     Color.fromARGB(255, 242, 219, 47),
@@ -367,9 +311,9 @@ class ShopItem extends StatelessWidget {
                   Expanded(
                     child: Container(
                       width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 26, 25, 25),
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
                         ),
@@ -380,19 +324,25 @@ class ShopItem extends StatelessWidget {
                           children: [
                             Text(
                               benefit,
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
                             ),
-                            const Text(
+                            Text(
                               "+180币",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 233, 40, 88),
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
                             ),
                           ],
                         ),
@@ -405,7 +355,7 @@ class ShopItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: selected
                           ? Colors.transparent
-                          : const Color.fromARGB(255, 50, 48, 48),
+                          : Theme.of(context).colorScheme.onPrimaryContainer,
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(8),
                         bottomRight: Radius.circular(8),
@@ -414,11 +364,10 @@ class ShopItem extends StatelessWidget {
                     child: Text(
                       price,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                   ),
                 ],
@@ -434,18 +383,23 @@ class ShopItem extends StatelessWidget {
                           top: 4,
                           bottom: 4,
                         ),
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 233, 40, 88),
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryFixedVariant,
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(12),
+                            topRight: Radius.circular(8),
                           ),
                         ),
                         child: Text(
                           tips ?? '',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                         ),
                       ),
                     )
@@ -453,6 +407,39 @@ class ShopItem extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// 充值声明
+// 1.月度会员和年度会员均支持自动续费，续费周期为1个月或1年。自动扣费用户可以在 App Store 中关闭自动续费。
+// 2.T 币值可解锁单集视频，解锁价格以具体视频为准，。
+// 3.VIP 可解锁全集视频，会员有效期内免费观看。会员到期后以 T 币值解锁。
+// 4.充值所有内容为虚拟物品，不支持退款。
+
+// 开通前请阅读《会员服务协议》及《自动续费付费规则》
+class RechargeDeclaration extends StatelessWidget {
+  const RechargeDeclaration({super.key});
+
+  static const list = [
+    '充值声明:',
+    '1.月度会员和年度会员均支持自动续费，续费周期为1个月或1年。自动扣费用户可以在 App Store 中关闭自动续费。',
+    '2.T 币值可解锁单集视频，解锁价格以具体视频为准。',
+    '3.VIP 可解锁全集视频，会员有效期内免费观看。会员到期后以 T 币值解锁。',
+    '4.充值所有内容为虚拟物品，不支持退款。',
+  ];
+  @override
+  Widget build(BuildContext context) {
+    TextStyle textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+          height: 1.5,
+        );
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: list.map((e) => Text(e, style: textStyle)).toList(),
       ),
     );
   }
