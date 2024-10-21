@@ -40,30 +40,29 @@ class _HomePageState extends State<HomePage> {
     final double width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   leading: const Icon(Icons.cast),
-      //   actions: <Widget>[
-      //     Padding(
-      //       padding: const EdgeInsetsDirectional.only(end: 16.0),
-      //       child: Row(
-      //         children: [
-      //           const Icon(
-      //             Icons.search,
-      //             color: Colors.red,
-      //             size: 32,
-      //           ),
-      //           const SizedBox(width: 16),
-      //           Lottie.asset(
-      //             "assets/lotties/gift.json",
-      //             height: 52,
-      //             width: 52,
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
+      appBar: AppBar(
+        leading: const Icon(Icons.cast),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: 16.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.search,
+                  color: Colors.red,
+                  size: 32,
+                ),
+                const SizedBox(width: 16),
+                Lottie.asset(
+                  "assets/lotties/gift.json",
+                  height: 36,
+                  width: 36,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: dataList.length,
         itemBuilder: (BuildContext context, int index) {

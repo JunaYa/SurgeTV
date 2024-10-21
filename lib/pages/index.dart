@@ -195,14 +195,14 @@ class _NavigationTransitionState extends State<NavigationTransition> {
 
     return Scaffold(
       key: widget.scaffoldKey,
-      appBar: widget.appBar,
+      // appBar: widget.appBar,
       body: widget.body,
       bottomNavigationBar: BarTransition(
         animation: barAnimation,
         backgroundColor: colorScheme.surface,
         child: widget.navigationBar,
       ),
-      endDrawer: const NavigationDrawerSection(),
+      // endDrawer: const NavigationDrawerSection(),
     );
   }
 }

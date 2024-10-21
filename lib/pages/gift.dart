@@ -11,8 +11,9 @@ class GiftPage extends StatefulWidget {
 class _GiftPageState extends State<GiftPage> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
         children: const [
           CheckInBoard(),
           SizedBox(height: 16),
