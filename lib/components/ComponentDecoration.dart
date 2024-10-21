@@ -7,14 +7,16 @@ const double widthConstraint = 450;
 class ComponentDecoration extends StatefulWidget {
   const ComponentDecoration({
     super.key,
-    required this.label,
+    this.label,
     required this.child,
     this.tooltipMessage = '',
+    this.elevation = 0,
   });
 
-  final String label;
+  final String? label;
   final Widget child;
   final String? tooltipMessage;
+  final double elevation;
 
   @override
   State<ComponentDecoration> createState() => _ComponentDecorationState();
@@ -30,19 +32,21 @@ class _ComponentDecorationState extends State<ComponentDecoration> {
         padding: const EdgeInsets.symmetric(vertical: smallSpacing),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(widget.label,
-                    style: Theme.of(context).textTheme.titleMedium),
-                Tooltip(
-                  message: widget.tooltipMessage,
-                  child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Icon(Icons.info_outline, size: 16)),
-                ),
-              ],
-            ),
+            widget.label != null && widget.label!.isNotEmpty
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(widget.label!,
+                          style: Theme.of(context).textTheme.titleMedium),
+                      Tooltip(
+                        message: widget.tooltipMessage,
+                        child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Icon(Icons.info_outline, size: 16)),
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
             ConstrainedBox(
               constraints:
                   const BoxConstraints.tightFor(width: widthConstraint),
@@ -57,7 +61,7 @@ class _ComponentDecorationState extends State<ComponentDecoration> {
                   },
                   behavior: HitTestBehavior.opaque,
                   child: Card(
-                    elevation: 0,
+                    elevation: widget.elevation,
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         color: Theme.of(context).colorScheme.outlineVariant,
@@ -66,7 +70,7 @@ class _ComponentDecorationState extends State<ComponentDecoration> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 20.0),
+                          horizontal: 16.0, vertical: 20.0),
                       child: Center(
                         child: widget.child,
                       ),
