@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/CheckInBoard.dart';
+import 'package:surgetv/components/ElevationCard.dart';
 
 class GiftPage extends StatefulWidget {
   const GiftPage({super.key});
@@ -14,6 +15,7 @@ class _GiftPageState extends State<GiftPage> {
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         children: const [
           CheckInBoard(),
           SizedBox(height: 16),
@@ -37,31 +39,23 @@ class Title extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(top: 16, bottom: 16, left: 12, right: 12),
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 31, 31, 31),
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
       ),
-      child: Text(name,
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+      child: Text(
+        name,
+        textAlign: TextAlign.start,
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
     );
   }
-}
-
-// divider
-_divider() {
-  return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.only(left: 16, right: 16),
-    child: const Divider(
-      height: 0.5,
-      color: Color.fromARGB(255, 99, 99, 99),
-    ),
-  );
 }
 
 // 更多福利
@@ -70,12 +64,11 @@ class MoreGift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 20, 20, 20),
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return ElevationCard(
+      info: const ElevationInfo(1, 1.0, 1),
+      surfaceTintColor: Theme.of(context).colorScheme.primary,
+      shadowColor: Colors.transparent,
+      padding: EdgeInsets.zero,
       child: const Column(
         children: [
           Title(name: '更多福利'),
@@ -102,7 +95,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '登录',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 2,
           currentCount: 0,
@@ -111,7 +104,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 2,
           currentCount: 0,
@@ -120,7 +113,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 3,
           currentCount: 0,
@@ -129,7 +122,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '准许',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 2,
           currentCount: 0,
@@ -138,7 +131,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '关注',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         // 绑定邮箱
         WelfareItem(
           coinCount: 3,
@@ -148,7 +141,7 @@ class MoreWelfareList extends StatelessWidget {
           buttonText: '绑定',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         // 分享给脸书
         WelfareItem(
           coinCount: 3,
@@ -169,12 +162,11 @@ class OtherWelfare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 20, 20, 20),
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return ElevationCard(
+      info: const ElevationInfo(1, 1.0, 1),
+      surfaceTintColor: Theme.of(context).colorScheme.primary,
+      shadowColor: Colors.transparent,
+      padding: EdgeInsets.zero,
       child: const Column(
         children: [
           Title(name: '其它福利'),
@@ -201,7 +193,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -210,7 +202,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -219,7 +211,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -228,7 +220,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -237,7 +229,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -246,7 +238,7 @@ class OtherWelfareList extends StatelessWidget {
           buttonText: '观看',
           onPressed: () {},
         ),
-        _divider(),
+        const DividerWidget(),
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
@@ -288,6 +280,11 @@ class WelfareItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = Theme.of(context).textTheme.bodyLarge!.copyWith(
+          fontSize: 16,
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        );
     return Container(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 24),
       child: Row(
@@ -307,52 +304,51 @@ class WelfareItem extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    '$coinCount币',
-                    style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text('$coinCount币', style: textStyle),
                   const SizedBox(width: 8),
                   // totalCount > 0 展示否则隐藏
                   totalCount > 0
-                      ? Text(
-                          '($currentCount/$totalCount)',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold),
-                        )
+                      ? Text('($currentCount/$totalCount)', style: textStyle)
                       : const SizedBox(),
                 ],
               ),
               const SizedBox(height: 8),
               Text(
                 description,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.normal),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),
           TextButton(
             style: TextButton.styleFrom(
               minimumSize: const Size(80, 30),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
                 side: BorderSide(
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.primary,
                   width: 1,
                 ),
               ),
             ),
             onPressed: onPressed,
-            child: Text(buttonText, style: const TextStyle(color: Colors.red)),
+            child: Text(buttonText),
           ),
         ],
       ),
+    );
+  }
+}
+
+class DividerWidget extends StatelessWidget {
+  const DividerWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(left: 16, right: 16),
+      child: Divider(key: Key('divider')),
     );
   }
 }

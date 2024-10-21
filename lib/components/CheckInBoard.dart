@@ -1,5 +1,6 @@
 // 签到板
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/ElevationCard.dart';
 
 class CheckInBoard extends StatefulWidget {
   const CheckInBoard({super.key});
@@ -117,33 +118,30 @@ class _CheckInBoardState extends State<CheckInBoard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        const Row(
+        Row(
           children: [
-            Icon(Icons.currency_exchange, color: Colors.yellow, size: 16),
-            SizedBox(width: 4),
+            const Icon(Icons.currency_exchange, color: Colors.yellow, size: 16),
+            const SizedBox(width: 8),
             Text(
               'T币余额',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 8),
             Text(
               '1000',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ],
         ),
         const SizedBox(height: 16),
         // 连续签到
-        Container(
+        ElevationCard(
+          info: const ElevationInfo(5, 12.0, 14),
+          surfaceTintColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          shadowColor: Colors.transparent,
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 238, 150, 150),
-            borderRadius: BorderRadius.circular(10),
-          ),
           child: Column(
             children: [
               Row(
@@ -153,7 +151,9 @@ class _CheckInBoardState extends State<CheckInBoard> {
                   const SizedBox(width: 4),
                   Text(
                     '连续签到${_getContinuousCheckInDays()}天',
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ],
               ),
@@ -181,19 +181,22 @@ class _CheckInBoardState extends State<CheckInBoard> {
                                   const Icon(Icons.check_circle,
                                       color: Colors.yellow),
                                   const SizedBox(height: 4),
-                                  Text("+2",
+                                  Text("+${day['reward']}",
                                       style: TextStyle(
                                           color: day['isCurrent'] == true
-                                              ? Colors.white
-                                              : Colors.black,
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                           fontSize: 14)),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 6),
                             Text(day['day'] as String,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 12)),
+                                style: Theme.of(context).textTheme.bodySmall),
                           ],
                         ),
                       ),
@@ -247,11 +250,10 @@ _showCheckInDialog(BuildContext context, {required int reward}) {
                 //
                 SizedBox(
                   height: 240,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 237, 138, 138),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                  child: ElevationCard(
+                    info: const ElevationInfo(5, 12.0, 14),
+                    surfaceTintColor: Theme.of(context).colorScheme.primary,
+                    shadowColor: Colors.transparent,
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -260,11 +262,12 @@ _showCheckInDialog(BuildContext context, {required int reward}) {
                         const SizedBox(height: 24),
                         Text(
                           '恭喜获得${reward}T币',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         const SizedBox(height: 38),
                         Container(
@@ -318,7 +321,7 @@ _showCheckInDialog(BuildContext context, {required int reward}) {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.close_rounded, color: Colors.white),
+              icon: const Icon(Icons.close_rounded),
             ),
           ],
         ),
