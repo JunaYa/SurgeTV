@@ -15,7 +15,7 @@ class WalletInfoBoard extends StatelessWidget {
     TextStyle cardTextStyle = Theme.of(context).textTheme.bodyLarge!;
 
     return ElevationCard(
-      info: const ElevationInfo(3, 1.0, 1),
+      elevation: 1,
       padding: const EdgeInsets.all(16),
       surfaceTintColor: surfaceTint,
       shadowColor: Colors.transparent,

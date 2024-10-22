@@ -65,7 +65,7 @@ class MoreGift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevationCard(
-      info: const ElevationInfo(1, 1.0, 1),
+      elevation: 1,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
       shadowColor: Colors.transparent,
       padding: EdgeInsets.zero,
@@ -163,7 +163,7 @@ class OtherWelfare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevationCard(
-      info: const ElevationInfo(1, 1.0, 1),
+      elevation: 1,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
       shadowColor: Colors.transparent,
       padding: EdgeInsets.zero,

@@ -138,7 +138,7 @@ class _CheckInBoardState extends State<CheckInBoard> {
         const SizedBox(height: 16),
         // 连续签到
         ElevationCard(
-          info: const ElevationInfo(5, 12.0, 14),
+          elevation: 5,
           surfaceTintColor: Theme.of(context).colorScheme.onPrimaryContainer,
           shadowColor: Colors.transparent,
           padding: const EdgeInsets.all(8),
@@ -251,7 +251,7 @@ _showCheckInDialog(BuildContext context, {required int reward}) {
                 SizedBox(
                   height: 240,
                   child: ElevationCard(
-                    info: const ElevationInfo(5, 12.0, 14),
+                    elevation: 5,
                     surfaceTintColor: Theme.of(context).colorScheme.primary,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.all(8.0),

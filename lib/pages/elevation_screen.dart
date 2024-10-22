@@ -20,10 +20,6 @@ class ElevationScreen extends StatelessWidget {
               ),
             ),
           ),
-          ElevationGrid(
-            surfaceTintColor: surfaceTint,
-            shadowColor: Colors.transparent,
-          ),
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
               const SizedBox(height: 10),
@@ -35,10 +31,6 @@ class ElevationScreen extends StatelessWidget {
                 ),
               ),
             ]),
-          ),
-          ElevationGrid(
-            shadowColor: shadowColor,
-            surfaceTintColor: surfaceTint,
           ),
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
@@ -52,7 +44,6 @@ class ElevationScreen extends StatelessWidget {
               ),
             ]),
           ),
-          ElevationGrid(shadowColor: shadowColor),
         ],
       ),
     );
@@ -60,51 +51,3 @@ class ElevationScreen extends StatelessWidget {
 }
 
 const double narrowScreenWidthThreshold = 450;
-
-class ElevationGrid extends StatelessWidget {
-  const ElevationGrid({super.key, this.shadowColor, this.surfaceTintColor});
-
-  final Color? shadowColor;
-  final Color? surfaceTintColor;
-
-  List<ElevationCard> elevationCards(
-      Color? shadowColor, Color? surfaceTintColor) {
-    return elevations
-        .map(
-          (elevationInfo) => ElevationCard(
-            info: elevationInfo,
-            child: const SizedBox(),
-          ),
-        )
-        .toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.all(8),
-      sliver: SliverLayoutBuilder(builder: (context, constraints) {
-        if (constraints.crossAxisExtent < narrowScreenWidthThreshold) {
-          return SliverGrid.count(
-            crossAxisCount: 3,
-            children: elevationCards(shadowColor, surfaceTintColor),
-          );
-        } else {
-          return SliverGrid.count(
-            crossAxisCount: 6,
-            children: elevationCards(shadowColor, surfaceTintColor),
-          );
-        }
-      }),
-    );
-  }
-}
-
-const List<ElevationInfo> elevations = <ElevationInfo>[
-  ElevationInfo(0, 0.0, 0),
-  ElevationInfo(1, 1.0, 5),
-  ElevationInfo(2, 3.0, 8),
-  ElevationInfo(3, 6.0, 11),
-  ElevationInfo(4, 8.0, 12),
-  ElevationInfo(5, 12.0, 14),
-];

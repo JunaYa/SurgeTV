@@ -59,7 +59,7 @@ class _PersonPageState extends State<PersonPage> {
           ElevationCard(
             surfaceTintColor: surfaceTint,
             shadowColor: Colors.transparent,
-            info: const ElevationInfo(1, 1, 0),
+            elevation: 1,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               children: [
@@ -125,7 +125,7 @@ class _PersonPageState extends State<PersonPage> {
           ElevationCard(
             surfaceTintColor: surfaceTint,
             shadowColor: Colors.transparent,
-            info: const ElevationInfo(1, 1, 0),
+            elevation: 1,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               children: [

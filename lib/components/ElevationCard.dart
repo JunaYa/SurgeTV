@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class ElevationCard extends StatefulWidget {
   const ElevationCard({
     super.key,
-    required this.info,
     required this.child,
+    this.elevation = 0,
     this.padding = const EdgeInsets.all(8.0),
     this.shadowColor,
     this.surfaceTintColor,
     this.color,
   });
 
-  final ElevationInfo info;
   final Widget child;
+  final double? elevation;
   final EdgeInsetsGeometry padding;
   final Color? shadowColor;
   final Color? surfaceTintColor;
@@ -22,12 +22,9 @@ class ElevationCard extends StatefulWidget {
 }
 
 class _ElevationCardState extends State<ElevationCard> {
-  late double _elevation;
-
   @override
   void initState() {
     super.initState();
-    _elevation = widget.info.elevation;
   }
 
   @override
@@ -37,27 +34,17 @@ class _ElevationCardState extends State<ElevationCard> {
     Color shadowColor = Theme.of(context).colorScheme.shadow;
     Color surfaceTint = Theme.of(context).colorScheme.primary;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        borderRadius: borderRadius,
-        elevation: _elevation,
-        color: widget.color ?? color,
-        shadowColor: widget.shadowColor ?? shadowColor,
-        surfaceTintColor: widget.surfaceTintColor ?? surfaceTint,
-        type: MaterialType.card,
-        child: Padding(
-          padding: widget.padding,
-          child: widget.child,
-        ),
+    return Material(
+      borderRadius: borderRadius,
+      elevation: widget.elevation ?? 0,
+      color: widget.color ?? color,
+      shadowColor: widget.shadowColor ?? shadowColor,
+      surfaceTintColor: widget.surfaceTintColor ?? surfaceTint,
+      type: MaterialType.card,
+      child: Padding(
+        padding: widget.padding,
+        child: widget.child,
       ),
     );
   }
-}
-
-class ElevationInfo {
-  const ElevationInfo(this.level, this.elevation, this.overlayPercent);
-  final int level;
-  final double elevation;
-  final int overlayPercent;
 }
