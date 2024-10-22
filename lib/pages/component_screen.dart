@@ -1977,23 +1977,6 @@ class _SearchAnchorsState extends State<SearchAnchors> {
       tooltipMessage: 'Use SearchAnchor or SearchAnchor.bar',
       child: Column(
         children: <Widget>[
-          SearchAnchor.bar(
-            barHintText: 'Search colors',
-            suggestionsBuilder: (context, controller) {
-              if (controller.text.isEmpty) {
-                if (searchHistory.isNotEmpty) {
-                  return getHistoryList(controller);
-                }
-                return <Widget>[
-                  const Center(
-                    child: Text('No search history.',
-                        style: TextStyle(color: Colors.grey)),
-                  )
-                ];
-              }
-              return getSuggestions(controller);
-            },
-          ),
           const SizedBox(height: 20),
           if (selectedColor == null)
             const Text('Select a color')

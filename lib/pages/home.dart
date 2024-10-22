@@ -7,6 +7,7 @@ import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
 import 'package:surgetv/dao/home_dao.dart';
+import 'package:surgetv/pages/search.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,10 +48,14 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsetsDirectional.only(end: 16.0),
             child: Row(
               children: [
-                const Icon(
-                  Icons.search,
-                  color: Colors.red,
-                  size: 32,
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SearchPage()));
+                  },
+                  icon: const Icon(Icons.search),
                 ),
                 const SizedBox(width: 16),
                 Lottie.asset(
