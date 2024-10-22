@@ -60,63 +60,21 @@ class _PersonPageState extends State<PersonPage> {
             surfaceTintColor: surfaceTint,
             shadowColor: Colors.transparent,
             elevation: 1,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               children: [
                 // 播放历史
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            Icons.history,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 16),
-                          Text(
-                            '播放历史',
-                            style: cardTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // arrow right icon
-                    const Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                FieldItemWidget(
+                  icon: const Icon(Icons.history),
+                  title: '播放历史',
+                  onPressed: () {},
                 ),
                 const DividerWidget(),
                 // 检测新版本
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            Icons.cloud_download_outlined,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 16),
-                          Text(
-                            '检测版本',
-                            style: cardTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // arrow right icon
-                    const Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                FieldItemWidget(
+                  icon: const Icon(Icons.cloud_download_outlined),
+                  title: '检测版本',
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -126,138 +84,85 @@ class _PersonPageState extends State<PersonPage> {
             surfaceTintColor: surfaceTint,
             shadowColor: Colors.transparent,
             elevation: 1,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               children: [
                 // 兑换码
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            Icons.currency_exchange_outlined,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 16),
-                          Text(
-                            '兑换码',
-                            style: cardTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // arrow right icon
-                    const Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                FieldItemWidget(
+                  icon: const Icon(Icons.currency_exchange_outlined),
+                  title: '兑换码',
+                  onPressed: () {},
                 ),
                 const DividerWidget(),
                 // 意见反馈
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            Icons.chat_outlined,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 16),
-                          Text(
-                            '意见反馈',
-                            style: cardTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // arrow right icon
-                    const Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                FieldItemWidget(
+                  icon: const Icon(Icons.chat_outlined),
+                  title: '意见反馈',
+                  onPressed: () {},
                 ),
                 const DividerWidget(),
                 // 设置
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    // MaterialPageRoute(
-                    //     builder: (context) => SettingPage(
-                    //           useLightMode: true,
-                    //           useMaterial3: true,
-                    //           colorSelected: ColorSeed.blue,
-                    //           imageSelected: ColorImageProvider.none, handleBrightnessChange: (bool useLightMode) {  },
-                    //         )),
-                    // );
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            const Icon(
-                              Icons.settings_outlined,
-                              size: 24,
-                              color: Colors.black,
-                            ),
-                            const SizedBox(width: 16),
-                            Text(
-                              '设置',
-                              style: cardTextStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // arrow right icon
-                      const Icon(
-                        Icons.arrow_right_outlined,
-                        size: 24,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
+                FieldItemWidget(
+                  icon: const Icon(Icons.settings_outlined),
+                  title: '设置',
+                  onPressed: () {},
                 ),
                 const DividerWidget(),
                 // 关于
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            Icons.tips_and_updates_outlined,
-                            size: 24,
-                            color: Colors.black,
-                          ),
-                          const SizedBox(width: 16),
-                          Text(
-                            '关于',
-                            style: cardTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // arrow right icon
-                    const Icon(
-                      Icons.arrow_right_outlined,
-                      size: 24,
-                      color: Colors.black,
-                    ),
-                  ],
+                FieldItemWidget(
+                  icon: const Icon(Icons.tips_and_updates_outlined),
+                  title: '关于',
+                  onPressed: () {},
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FieldItemWidget extends StatelessWidget {
+  const FieldItemWidget(
+      {super.key,
+      required this.onPressed,
+      required this.icon,
+      required this.title});
+
+  final void Function() onPressed;
+  final Widget icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle cardTextStyle = Theme.of(context).textTheme.bodyLarge!;
+
+    return GestureDetector(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                icon,
+                const SizedBox(width: 16),
+                Text(
+                  title,
+                  style: cardTextStyle,
+                ),
+              ],
+            ),
+            // arrow right icon
+            const Spacer(),
+            const Icon(
+              Icons.arrow_right_outlined,
+              size: 24,
+              color: Colors.black,
+            ),
+          ],
+        ),
       ),
     );
   }

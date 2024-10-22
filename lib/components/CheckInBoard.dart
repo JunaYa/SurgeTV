@@ -146,8 +146,7 @@ class _CheckInBoardState extends State<CheckInBoard> {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.calendar_month,
-                      color: Colors.yellow, size: 16),
+                  const Icon(Icons.calendar_month),
                   const SizedBox(width: 4),
                   Text(
                     '连续签到${_getContinuousCheckInDays()}天',

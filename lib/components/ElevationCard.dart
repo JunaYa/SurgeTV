@@ -30,7 +30,7 @@ class _ElevationCardState extends State<ElevationCard> {
   @override
   Widget build(BuildContext context) {
     const BorderRadius borderRadius = BorderRadius.all(Radius.circular(4.0));
-    Color color = Theme.of(context).colorScheme.primary;
+    Color color = Theme.of(context).colorScheme.surface;
     Color shadowColor = Theme.of(context).colorScheme.shadow;
     Color surfaceTint = Theme.of(context).colorScheme.primary;
 
