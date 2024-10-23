@@ -1,14 +1,5 @@
-// Copyright 2021 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:surgetv/config/constants.dart';
-
-import 'color_palettes_screen.dart';
-import 'component_screen.dart';
-import 'elevation_screen.dart';
-import 'typography_screen.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({
@@ -510,4 +501,3 @@ class _ExpandedImageColorAction extends StatelessWidget {
     );
   }
 }
-

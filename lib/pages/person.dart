@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
+import 'package:surgetv/pages/about.dart';
 import 'package:surgetv/pages/login.dart';
 import 'package:surgetv/pages/setting.dart';
 
@@ -112,7 +113,13 @@ class _PersonPageState extends State<PersonPage> {
                 FieldItemWidget(
                   icon: const Icon(Icons.tips_and_updates_outlined),
                   title: '关于',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutPage()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -140,22 +147,25 @@ class FieldItemWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: onPressed,
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                icon,
-                const SizedBox(width: 16),
-                Text(
-                  title,
-                  style: cardTextStyle,
-                ),
-              ],
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: <Widget>[
+                  icon,
+                  const SizedBox(width: 16),
+                  Text(
+                    title,
+                    style: cardTextStyle,
+                  ),
+                ],
+              ),
             ),
+            // const Spacer(),
             // arrow right icon
-            const Spacer(),
             const Icon(
               Icons.arrow_right_outlined,
               size: 24,
