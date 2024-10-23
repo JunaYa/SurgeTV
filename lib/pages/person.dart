@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/pages/about.dart';
+import 'package:surgetv/pages/gift.dart';
 import 'package:surgetv/pages/login.dart';
 import 'package:surgetv/pages/setting.dart';
 
@@ -16,7 +17,6 @@ class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
     Color surfaceTint = Theme.of(context).colorScheme.primary;
-    TextStyle cardTextStyle = Theme.of(context).textTheme.bodyLarge!;
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -149,6 +149,7 @@ class FieldItemWidget extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
+        color: Colors.transparent,
         child: Row(
           children: <Widget>[
             Expanded(
@@ -175,16 +176,5 @@ class FieldItemWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class DividerWidget extends StatelessWidget {
-  const DividerWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Divider(key: Key('divider'));
   }
 }

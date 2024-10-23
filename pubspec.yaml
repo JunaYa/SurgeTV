@@ -41,6 +41,7 @@ dependencies:
   video_player: ^2.9.2
   lottie: ^3.1.2
   url_launcher: ^6.3.1
+  package_info_plus: ^8.1.0
 
 dev_dependencies:
   flutter_test:
