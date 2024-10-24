@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:surgetv/components/DividerWidget.dart';
+import 'package:surgetv/pages/webpage.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -52,14 +53,34 @@ class _AboutPageState extends State<AboutPage> {
           FieldItemWidget(
             title: '隐私协议',
             showArrow: true,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebViewApp(
+                    url: 'privacy_agreement.html',
+                    title: '隐私协议',
+                  ),
+                ),
+              );
+            },
           ),
           const DividerWidget(),
           // 用户协议
           FieldItemWidget(
             title: '用户协议',
             showArrow: true,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WebViewApp(
+                    url: 'user_agreement.html',
+                    title: '用户协议',
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
