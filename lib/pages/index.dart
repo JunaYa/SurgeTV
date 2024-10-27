@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/Transition.dart';
 import 'package:surgetv/components/NavigationBars.dart';
-import 'package:surgetv/components/NavigationDrawer.dart';
 import 'package:surgetv/config/constants.dart';
 import 'package:surgetv/pages/discover.dart';
 import 'package:surgetv/pages/gift.dart';
@@ -11,27 +10,7 @@ import 'package:surgetv/pages/person.dart';
 class IndexPage extends StatefulWidget {
   const IndexPage({
     super.key,
-    required this.useLightMode,
-    required this.useMaterial3,
-    required this.colorSelected,
-    required this.handleBrightnessChange,
-    required this.handleMaterialVersionChange,
-    required this.handleColorSelect,
-    required this.handleImageSelect,
-    required this.colorSelectionMethod,
-    required this.imageSelected,
   });
-
-  final bool useLightMode;
-  final bool useMaterial3;
-  final ColorSeed colorSelected;
-  final ColorImageProvider imageSelected;
-  final ColorSelectionMethod colorSelectionMethod;
-
-  final void Function(bool useLightMode) handleBrightnessChange;
-  final void Function() handleMaterialVersionChange;
-  final void Function(int value) handleColorSelect;
-  final void Function(int value) handleImageSelect;
 
   @override
   State<IndexPage> createState() => _IndexPageState();

@@ -106,7 +106,13 @@ class _PersonPageState extends State<PersonPage> {
                 FieldItemWidget(
                   icon: const Icon(Icons.settings_outlined),
                   title: '设置',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingPage()),
+                    );
+                  },
                 ),
                 const DividerWidget(),
                 // 关于

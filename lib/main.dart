@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/config/constants.dart';
 import 'package:surgetv/pages/index.dart';
+import 'package:surgetv/stage/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const App());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeManager(),
+      child: const App(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {
@@ -63,37 +70,33 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SurgeTV',
-      themeMode: themeMode,
-      theme: ThemeData(
-        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
-            ? colorSelected.color
-            : null,
-        colorScheme: colorSelectionMethod == ColorSelectionMethod.image
-            ? imageColorScheme
-            : null,
-        useMaterial3: useMaterial3,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
-            ? colorSelected.color
-            : imageColorScheme!.primary,
-        useMaterial3: useMaterial3,
-        brightness: Brightness.dark,
-      ),
-      home: IndexPage(
-        useLightMode: useLightMode,
-        useMaterial3: useMaterial3,
-        colorSelected: colorSelected,
-        imageSelected: imageSelected,
-        handleBrightnessChange: handleBrightnessChange,
-        handleMaterialVersionChange: handleMaterialVersionChange,
-        handleColorSelect: handleColorSelect,
-        handleImageSelect: handleImageSelect,
-        colorSelectionMethod: colorSelectionMethod,
+    return Consumer<ThemeManager>(
+      builder: (context, themeManager, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'SurgeTV',
+        theme: themeManager.lightTheme,
+          darkTheme: themeManager.darkTheme,
+        themeMode: themeManager.themeMode,
+        // theme: ThemeData(
+        //   colorSchemeSeed:
+        //       colorSelectionMethod == ColorSelectionMethod.colorSeed
+        //           ? colorSelected.color
+        //           : null,
+        //   colorScheme: colorSelectionMethod == ColorSelectionMethod.image
+        //       ? imageColorScheme
+        //       : null,
+        //   useMaterial3: useMaterial3,
+        //   brightness: Brightness.light,
+        // ),
+        // darkTheme: ThemeData(
+        //   colorSchemeSeed:
+        //       colorSelectionMethod == ColorSelectionMethod.colorSeed
+        //           ? colorSelected.color
+        //           : imageColorScheme!.primary,
+        //   useMaterial3: useMaterial3,
+        //   brightness: Brightness.dark,
+        // ),
+        home: const IndexPage(),
       ),
     );
   }

@@ -1,30 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/config/constants.dart';
+import 'package:surgetv/stage/theme.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({
     super.key,
-    required this.useLightMode,
-    required this.useMaterial3,
-    required this.colorSelected,
-    required this.handleBrightnessChange,
-    required this.handleMaterialVersionChange,
-    required this.handleColorSelect,
-    required this.handleImageSelect,
-    required this.colorSelectionMethod,
-    required this.imageSelected,
   });
-
-  final bool useLightMode;
-  final bool useMaterial3;
-  final ColorSeed colorSelected;
-  final ColorImageProvider imageSelected;
-  final ColorSelectionMethod colorSelectionMethod;
-
-  final void Function(bool useLightMode) handleBrightnessChange;
-  final void Function() handleMaterialVersionChange;
-  final void Function(int value) handleColorSelect;
-  final void Function(int value) handleImageSelect;
 
   @override
   State<SettingPage> createState() => _SettingPageState();
@@ -32,12 +13,57 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage>
     with SingleTickerProviderStateMixin {
+  bool useMaterial3 = true;
+  bool get useLightMode => switch (themeMode) {
+        ThemeMode.system =>
+          View.of(context).platformDispatcher.platformBrightness ==
+              Brightness.light,
+        ThemeMode.light => true,
+        ThemeMode.dark => false,
+      };
+  ThemeMode themeMode = ThemeMode.system;
+  ColorSeed colorSelected = ColorSeed.baseColor;
+  ColorImageProvider imageSelected = ColorImageProvider.leaves;
+  ColorScheme? imageColorScheme = const ColorScheme.light();
+  ColorSelectionMethod colorSelectionMethod = ColorSelectionMethod.colorSeed;
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late final AnimationController controller;
   late final CurvedAnimation railAnimation;
   bool controllerInitialized = false;
   bool showMediumSizeLayout = false;
   bool showLargeSizeLayout = false;
+
+  void handleBrightnessChange(bool useLightMode) {
+    setState(() {
+      themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
+    });
+  }
+
+  void handleMaterialVersionChange() {
+    setState(() {
+      useMaterial3 = !useMaterial3;
+    });
+  }
+
+  void handleColorSelect(int value) {
+    setState(() {
+      colorSelectionMethod = ColorSelectionMethod.colorSeed;
+      colorSelected = ColorSeed.values[value];
+    });
+  }
+
+  void handleImageSelect(int value) {
+    final String url = ColorImageProvider.values[value].url;
+    ColorScheme.fromImageProvider(provider: NetworkImage(url))
+        .then((newScheme) {
+      setState(() {
+        colorSelectionMethod = ColorSelectionMethod.image;
+        imageSelected = ColorImageProvider.values[value];
+        imageColorScheme = newScheme;
+      });
+    });
+  }
 
   @override
   initState() {
@@ -91,81 +117,86 @@ class _SettingPageState extends State<SettingPage>
     }
   }
 
-  PreferredSizeWidget createAppBar() {
-    return AppBar(
-      title: const Text("设置"),
-      actions: !showMediumSizeLayout && !showLargeSizeLayout
-          ? [
-              _BrightnessButton(
-                handleBrightnessChange: widget.handleBrightnessChange,
-              ),
-              _Material3Button(
-                handleMaterialVersionChange: widget.handleMaterialVersionChange,
-              ),
-              _ColorSeedButton(
-                handleColorSelect: widget.handleColorSelect,
-                colorSelected: widget.colorSelected,
-                colorSelectionMethod: widget.colorSelectionMethod,
-              ),
-              _ColorImageButton(
-                handleImageSelect: widget.handleImageSelect,
-                imageSelected: widget.imageSelected,
-                colorSelectionMethod: widget.colorSelectionMethod,
-              )
-            ]
-          : [Container()],
-    );
-  }
-
-  Widget _trailingActions() => Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Flexible(
-            child: _BrightnessButton(
-              handleBrightnessChange: widget.handleBrightnessChange,
-              showTooltipBelow: false,
-            ),
-          ),
-          Flexible(
-            child: _Material3Button(
-              handleMaterialVersionChange: widget.handleMaterialVersionChange,
-              showTooltipBelow: false,
-            ),
-          ),
-          Flexible(
-            child: _ColorSeedButton(
-              handleColorSelect: widget.handleColorSelect,
-              colorSelected: widget.colorSelected,
-              colorSelectionMethod: widget.colorSelectionMethod,
-            ),
-          ),
-          Flexible(
-            child: _ColorImageButton(
-              handleImageSelect: widget.handleImageSelect,
-              imageSelected: widget.imageSelected,
-              colorSelectionMethod: widget.colorSelectionMethod,
-            ),
-          ),
-        ],
-      );
-
   @override
   Widget build(BuildContext context) {
-    // return AnimatedBuilder(
-    //   animation: controller,
-    //   builder: (context, child) {
-    //     return NavigationTransition(
-    //       scaffoldKey: scaffoldKey,
-    //       animationController: controller,
-    //       railAnimation: railAnimation,
-    //       appBar: createAppBar(),
-    //       body: const SizedBox(),
-    //     );
-    //   },
-    // );
-    return Scaffold(
-      appBar: createAppBar(),
-      body: const SizedBox(),
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("设置"),
+          ),
+          body: Column(
+            children: [
+              Text("设置"),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<ThemeManager>().toggleThemeMode();
+                },
+                child: const Text('切换明暗主题'),
+              ),
+              _BrightnessButton(
+                handleBrightnessChange: handleBrightnessChange,
+              ),
+              _Material3Button(
+                handleMaterialVersionChange: handleMaterialVersionChange,
+              ),
+              _ColorSeedButton(
+                handleColorSelect: handleColorSelect,
+                colorSelected: colorSelected,
+                colorSelectionMethod: colorSelectionMethod,
+              ),
+              _ColorImageButton(
+                handleImageSelect: handleImageSelect,
+                imageSelected: imageSelected,
+                colorSelectionMethod: colorSelectionMethod,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      const Text('Brightness'),
+                      Expanded(child: Container()),
+                      Switch(
+                          value: useLightMode,
+                          onChanged: (value) {
+                            handleBrightnessChange(value);
+                          })
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      useMaterial3
+                          ? const Text('Material 3')
+                          : const Text('Material 2'),
+                      Expanded(child: Container()),
+                      Switch(
+                          value: useMaterial3,
+                          onChanged: (_) {
+                            handleMaterialVersionChange();
+                          })
+                    ],
+                  ),
+                  const Divider(),
+                  _ExpandedColorSeedAction(
+                    handleColorSelect: handleColorSelect,
+                    colorSelected: colorSelected,
+                    colorSelectionMethod: colorSelectionMethod,
+                  ),
+                  const Divider(),
+                  _ExpandedImageColorAction(
+                    handleImageSelect: handleImageSelect,
+                    imageSelected: imageSelected,
+                    colorSelectionMethod: colorSelectionMethod,
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -329,86 +360,6 @@ class _ColorImageButton extends StatelessWidget {
       },
       onSelected: handleImageSelect,
     );
-  }
-}
-
-class _ExpandedTrailingActions extends StatelessWidget {
-  const _ExpandedTrailingActions({
-    required this.useLightMode,
-    required this.handleBrightnessChange,
-    required this.useMaterial3,
-    required this.handleMaterialVersionChange,
-    required this.handleColorSelect,
-    required this.handleImageSelect,
-    required this.imageSelected,
-    required this.colorSelected,
-    required this.colorSelectionMethod,
-  });
-
-  final void Function(bool) handleBrightnessChange;
-  final void Function() handleMaterialVersionChange;
-  final void Function(int) handleImageSelect;
-  final void Function(int) handleColorSelect;
-
-  final bool useLightMode;
-  final bool useMaterial3;
-
-  final ColorImageProvider imageSelected;
-  final ColorSeed colorSelected;
-  final ColorSelectionMethod colorSelectionMethod;
-
-  @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final trailingActionsBody = Container(
-      constraints: const BoxConstraints.tightFor(width: 250),
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              const Text('Brightness'),
-              Expanded(child: Container()),
-              Switch(
-                  value: useLightMode,
-                  onChanged: (value) {
-                    handleBrightnessChange(value);
-                  })
-            ],
-          ),
-          Row(
-            children: [
-              useMaterial3
-                  ? const Text('Material 3')
-                  : const Text('Material 2'),
-              Expanded(child: Container()),
-              Switch(
-                  value: useMaterial3,
-                  onChanged: (_) {
-                    handleMaterialVersionChange();
-                  })
-            ],
-          ),
-          const Divider(),
-          _ExpandedColorSeedAction(
-            handleColorSelect: handleColorSelect,
-            colorSelected: colorSelected,
-            colorSelectionMethod: colorSelectionMethod,
-          ),
-          const Divider(),
-          _ExpandedImageColorAction(
-            handleImageSelect: handleImageSelect,
-            imageSelected: imageSelected,
-            colorSelectionMethod: colorSelectionMethod,
-          ),
-        ],
-      ),
-    );
-    return screenHeight > 740
-        ? trailingActionsBody
-        : SingleChildScrollView(child: trailingActionsBody);
   }
 }
 
