@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/pages/about.dart';
+import 'package:surgetv/pages/feedback.dart';
 import 'package:surgetv/pages/gift.dart';
 import 'package:surgetv/pages/login.dart';
 import 'package:surgetv/pages/setting.dart';
@@ -99,7 +100,13 @@ class _PersonPageState extends State<PersonPage> {
                 FieldItemWidget(
                   icon: const Icon(Icons.chat_outlined),
                   title: '意见反馈',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FeedbackPage()),
+                    );
+                  },
                 ),
                 const DividerWidget(),
                 // 设置
@@ -176,7 +183,6 @@ class FieldItemWidget extends StatelessWidget {
             const Icon(
               Icons.arrow_right_outlined,
               size: 24,
-              color: Colors.black,
             ),
           ],
         ),
