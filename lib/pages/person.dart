@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
+import 'package:surgetv/components/version_checker.dart';
 import 'package:surgetv/pages/about.dart';
 import 'package:surgetv/pages/feedback.dart';
 import 'package:surgetv/pages/gift.dart';
@@ -76,7 +77,9 @@ class _PersonPageState extends State<PersonPage> {
                 FieldItemWidget(
                   icon: const Icon(Icons.cloud_download_outlined),
                   title: '检测版本',
-                  onPressed: () {},
+                  onPressed: () {
+                    AppVersionChecker.checkForUpdate(context);
+                  },
                 ),
               ],
             ),
