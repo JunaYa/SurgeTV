@@ -6,38 +6,22 @@ import 'package:surgetv/components/HotVideosLayoutCard.dart';
 import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
-import 'package:surgetv/dao/home_dao.dart';
 import 'package:surgetv/pages/search.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'home_logic.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final List dataList = [];
-  bool isLoading = true;
-
-  void _fetchData() async {
-    var res = await HomeDao.home();
-    if (res.result) {
-      setState(() {
-        dataList.addAll(res.data);
-        isLoading = false;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchData();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final logic = Bind.find<HomeLogic>();
+    final state = Bind.find<HomeLogic>().state;
+    final colorScheme = Theme.of(context).colorScheme;
+    final i18n = AppLocalizations.of(context)!;
+    final size = MediaQuery.sizeOf(context);
+
     final double width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
@@ -69,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ListView.builder(
-        itemCount: dataList.length,
+        itemCount: state.dataList.length,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
             return Column(
@@ -80,50 +64,50 @@ class _HomePageState extends State<HomePage> {
                   child: Swiper(
                     itemBuilder: (BuildContext context, int idx) {
                       return BannerCard(
-                        videoItem: dataList[index].data[idx],
+                        videoItem: state.dataList[index].data[idx],
                       );
                     },
                     viewportFraction: 0.8,
                     scale: 0.9,
-                    itemCount: dataList[index].data.length,
+                    itemCount: state.dataList[index].data.length,
                   ),
                 ),
               ],
             );
           } else if (index == 1) {
             return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else if (index == 2) {
             return HotVideoLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else if (index == 3) {
             return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else if (index == 4) {
             return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else if (index == 5) {
             return RankingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else if (index == 6) {
             return NeverMissingLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           } else {
             return RecentlyViewedLayoutCard(
-              dataList[index].id,
-              category: dataList[index],
+              state.dataList[index].id,
+              category: state.dataList[index],
             );
           }
         },

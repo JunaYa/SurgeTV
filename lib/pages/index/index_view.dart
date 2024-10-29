@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:surgetv/components/Transition.dart';
 import 'package:surgetv/components/NavigationBars.dart';
 import 'package:surgetv/config/constants.dart';
-import 'package:surgetv/pages/discover.dart';
-import 'package:surgetv/pages/gift.dart';
-import 'package:surgetv/pages/home.dart';
-import 'package:surgetv/pages/person.dart';
+import 'package:surgetv/pages/discover/discover_view.dart';
+import 'package:surgetv/pages/gift/gift_view.dart';
+import 'package:surgetv/pages/home/home_view.dart';
+import 'package:surgetv/pages/person/person_view.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({

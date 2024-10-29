@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:surgetv/components/CheckInBoard.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 
-class GiftPage extends StatefulWidget {
+class GiftPage extends StatelessWidget {
   const GiftPage({super.key});
 
-  @override
-  State<GiftPage> createState() => _GiftPageState();
-}
-
-class _GiftPageState extends State<GiftPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

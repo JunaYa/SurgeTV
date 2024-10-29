@@ -14,13 +14,22 @@ class CouponDialog extends StatefulWidget {
 
   static Future<void> show({
     required BuildContext context,
-    required Function(String) onSubmit,
     String? description,
   }) {
+    Future<void> redeemCoupon(String code) async {
+      // 模拟网络请求
+      await Future.delayed(const Duration(seconds: 1));
+      if (code == 'TEST123') {
+        throw '该优惠券已被使用';
+      }
+      // 处理兑换逻辑
+      debugPrint('兑换成功：$code');
+    }
+
     return showDialog(
       context: context,
       builder: (context) => CouponDialog(
-        onSubmit: onSubmit,
+        onSubmit: redeemCoupon,
         description: description ?? '请输入优惠券序列号进行兑换，确保输入正确以避免兑换失败',
       ),
     );
@@ -56,11 +65,11 @@ class _CouponDialogState extends State<CouponDialog> {
   // 处理提交
   Future<void> _handleSubmit() async {
     final code = _controller.text.trim();
-    
+
     if (!_validateCode(code)) return;
-    
+
     setState(() => _isSubmitting = true);
-    
+
     try {
       await widget.onSubmit(code);
       if (mounted) {
@@ -83,7 +92,7 @@ class _CouponDialogState extends State<CouponDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -110,9 +119,9 @@ class _CouponDialogState extends State<CouponDialog> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // 描述文本
             Text(
               widget.description,
@@ -120,9 +129,9 @@ class _CouponDialogState extends State<CouponDialog> {
                 color: theme.textTheme.bodySmall?.color,
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // 输入框
             TextField(
               controller: _controller,
@@ -152,9 +161,9 @@ class _CouponDialogState extends State<CouponDialog> {
               ],
               onSubmitted: (_) => _handleSubmit(),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // 提交按钮
             FilledButton(
               onPressed: _isSubmitting ? null : _handleSubmit,
@@ -185,40 +194,6 @@ class UpperCaseTextFormatter extends TextInputFormatter {
     return TextEditingValue(
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,
-    );
-  }
-}
-
-// 使用示例
-class ExamplePage extends StatelessWidget {
-  const ExamplePage({super.key});
-
-  Future<void> _redeemCoupon(String code) async {
-    // 模拟网络请求
-    await Future.delayed(const Duration(seconds: 1));
-    if (code == 'TEST123') {
-      throw '该优惠券已被使用';
-    }
-    // 处理兑换逻辑
-    debugPrint('兑换成功：$code');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('优惠券兑换示例')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            CouponDialog.show(
-              context: context,
-              onSubmit: _redeemCoupon,
-              description: '输入您收到的优惠券序列号，兑换专属优惠。\n每个序列号仅能使用一次。',
-            );
-          },
-          child: const Text('打开兑换弹窗'),
-        ),
-      ),
     );
   }
 }
