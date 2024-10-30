@@ -5,5 +5,8 @@
   "appName": "SurgeTV",
   "setting": "Setting",
   "feedback": "Feedback",
-  "about": "About"
+  "about": "About",
+  "versionInfo": "Version Info",
+  "privacyAgreement": "Privacy Agreement",
+  "userAgreement": "User Agreement"
 }

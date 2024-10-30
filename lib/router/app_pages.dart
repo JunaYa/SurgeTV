@@ -17,6 +17,8 @@ import 'package:surgetv/pages/search/search_logic.dart';
 import 'package:surgetv/pages/search/search_view.dart';
 import 'package:surgetv/pages/setting/setting_logic.dart';
 import 'package:surgetv/pages/setting/setting_view.dart';
+import 'package:surgetv/pages/webpage/webpage_logic.dart';
+import 'package:surgetv/pages/webpage/webpage_view.dart';
 
 import 'app_routes.dart';
 
@@ -83,6 +85,13 @@ class AppPages {
       page: () => const AboutPage(),
       binds: [
         Bind.lazyPut(() => AboutLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.webpagePage,
+      page: () => const WebpagePage(),
+      binds: [
+        Bind.lazyPut(() => WebpageLogic()),
       ],
     ),
   ];

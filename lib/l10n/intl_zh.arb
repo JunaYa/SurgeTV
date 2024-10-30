@@ -5,5 +5,8 @@
   "appName": "心绪日记",
   "setting": "设置",
   "feedback": "意见反馈",
-  "about": "关于"
+  "about": "关于",
+  "versionInfo": "版本信息",
+  "privacyAgreement": "隐私协议",
+  "userAgreement": "用户协议"
 }

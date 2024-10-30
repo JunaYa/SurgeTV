@@ -33,5 +33,5 @@ abstract class AppRoutes {
   static const shopPage = '/shop';
 
   // webpage
-  static const webPage = 'webpage';
+  static const webpagePage = '/webpagePage';
 }

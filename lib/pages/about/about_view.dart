@@ -1,7 +1,7 @@
 // about page
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/DividerWidget.dart';
-import 'package:surgetv/pages/webpage.dart';
+import 'package:surgetv/pages/webpage/webpage_view.dart';
 import 'package:get/get.dart';
 import 'about_logic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,35 +23,31 @@ class AboutPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: <Widget>[
             FieldItemWidget(
-              title: '版本信息',
+              title: i18n!.versionInfo,
               subTitle: 'V${state.packageInfo.value.version}',
               showArrow: false,
             ),
             const DividerWidget(),
             // 隐私协议
             FieldItemWidget(
-              title: '隐私协议',
+              title: i18n!.privacyAgreement,
               showArrow: true,
               onPressed: () {
                 Get.to(
-                  () => const WebViewApp(
-                    url: 'privacy_agreement.html',
-                    title: '隐私协议',
-                  ),
+                  () => const WebpagePage(),
+                  arguments: {'url': 'privacy_agreement.html', 'title': '隐私协议'},
                 );
               },
             ),
             const DividerWidget(),
             // 用户协议
             FieldItemWidget(
-              title: '用户协议',
+              title: i18n!.userAgreement,
               showArrow: true,
               onPressed: () {
                 Get.to(
-                  () => const WebViewApp(
-                    url: 'user_agreement.html',
-                    title: '用户协议',
-                  ),
+                  () => const WebpagePage(),
+                  arguments: {'url': 'user_agreement.html', 'title': '用户协议'},
                 );
               },
             ),
