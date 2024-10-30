@@ -3,5 +3,7 @@
   "ok": "OK",
   "cancel": "Cancel",
   "appName": "SurgeTV",
-  "setting": "Setting"
+  "setting": "Setting",
+  "feedback": "Feedback",
+  "about": "About"
 }

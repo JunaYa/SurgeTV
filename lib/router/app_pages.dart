@@ -76,5 +76,6 @@ class AppPages {
         Bind.lazyPut(() => AboutLogic()),
       ],
     ),
+    
   ];
 }

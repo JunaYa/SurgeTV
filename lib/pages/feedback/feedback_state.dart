@@ -1,0 +1,3 @@
+class FeedbackState {
+  FeedbackState() {}
+}

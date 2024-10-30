@@ -1,15 +1,23 @@
 // Feedback page
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'feedback_logic.dart';
 
 class FeedbackPage extends StatelessWidget {
   const FeedbackPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logic = Get.find<FeedbackLogic>();
+    final state = Get.find<FeedbackLogic>().state;
+    final i18n = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text("意见反馈")),
+      appBar: AppBar(title: Text(i18n!.feedback)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

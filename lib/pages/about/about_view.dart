@@ -4,6 +4,7 @@ import 'package:surgetv/components/DividerWidget.dart';
 import 'package:surgetv/pages/webpage.dart';
 import 'package:get/get.dart';
 import 'about_logic.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -12,10 +13,11 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Bind.find<AboutLogic>();
     final state = logic.state;
+    final i18n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('关于 ${state.packageInfo.appName}'),
+        title: Text('${i18n!.about} ${state.packageInfo.appName}'),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),

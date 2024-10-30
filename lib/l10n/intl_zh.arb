@@ -3,5 +3,7 @@
   "ok": "确认",
   "cancel": "取消",
   "appName": "心绪日记",
-  "setting": "设置"
+  "setting": "设置",
+  "feedback": "意见反馈",
+  "about": "关于"
 }
