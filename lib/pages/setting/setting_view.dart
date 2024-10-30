@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/config/constants.dart';
-import 'package:surgetv/stage/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SettingPage extends StatefulWidget {
+import 'setting_logic.dart';
+
+class SettingPage extends StatelessWidget {
   const SettingPage({
     super.key,
   });
 
   @override
-  State<SettingPage> createState() => _SettingPageState();
-}
-
-class _SettingPageState extends State<SettingPage>
-    with SingleTickerProviderStateMixin {
-  @override
-  initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final logic = Get.find<SettingLogic>();
+    final state = Bind.find<SettingLogic>().state;
+    final i18n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("设置"),
+        title: Text(i18n.setting),
       ),
       body: Column(
         children: [
           Row(
             children: [
               _BrightnessButton(
-                handleBrightnessChange: () =>
-                    context.read<ThemeManager>().toggleThemeMode(),
+                handleBrightnessChange: () => logic.toggleThemeMode(),
               ),
               const Text('主题'),
               Expanded(child: Container()),
               Switch(
                   value: Theme.of(context).brightness == Brightness.light,
                   onChanged: (_) {
-                    context.read<ThemeManager>().toggleThemeMode();
+                    logic.toggleThemeMode();
                   })
             ],
           ),
@@ -46,16 +40,16 @@ class _SettingPageState extends State<SettingPage>
             children: [
               _Material3Button(
                 handleMaterialVersionChange: () =>
-                    context.read<ThemeManager>().handleMaterialVersionChange(),
+                    logic.toggleMaterialVersion(),
               ),
               Theme.of(context).useMaterial3
                   ? const Text('Material 3')
                   : const Text('Material 2'),
               Expanded(child: Container()),
               Switch(
-                  value: Theme.of(context).useMaterial3,
+                  value: state.useMaterial3,
                   onChanged: (_) {
-                    context.read<ThemeManager>().handleMaterialVersionChange();
+                    logic.toggleMaterialVersion();
                   })
             ],
           ),
@@ -63,18 +57,16 @@ class _SettingPageState extends State<SettingPage>
             children: [
               IconButton(
                 icon: const Icon(Icons.radio_button_unchecked),
-                color: context.read<ThemeManager>().colorSelected.color,
+                color: state.colorSelected.color,
                 isSelected: true,
                 selectedIcon: const Icon(Icons.circle),
                 onPressed: () {},
               ),
               Expanded(child: Container()),
               _ColorSeedButton(
-                handleColorSelect:
-                    context.read<ThemeManager>().handleColorSelect,
-                colorSelected: context.read<ThemeManager>().colorSelected,
-                colorSelectionMethod:
-                    context.read<ThemeManager>().colorSelectionMethod,
+                handleColorSelect: logic.handleColorSelect,
+                colorSelected: state.colorSelected,
+                colorSelectionMethod: state.colorSelectionMethod,
               ),
             ],
           ),
@@ -88,20 +80,17 @@ class _SettingPageState extends State<SettingPage>
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image(
-                          image: NetworkImage(
-                              context.read<ThemeManager>().imageSelected.url)),
+                      child:
+                          Image(image: NetworkImage(state.imageSelected.url)),
                     ),
                   ),
                 ),
               ),
               Expanded(child: Container()),
               _ColorImageButton(
-                handleImageSelect:
-                    context.read<ThemeManager>().handleImageSelect,
-                imageSelected: context.read<ThemeManager>().imageSelected,
-                colorSelectionMethod:
-                    context.read<ThemeManager>().colorSelectionMethod,
+                handleImageSelect: logic.handleImageSelect,
+                imageSelected: state.imageSelected,
+                colorSelectionMethod: state.colorSelectionMethod,
               ),
             ],
           ),
