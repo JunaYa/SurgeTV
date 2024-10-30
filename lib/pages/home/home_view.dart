@@ -6,9 +6,9 @@ import 'package:surgetv/components/HotVideosLayoutCard.dart';
 import 'package:surgetv/components/NeverMissingLayoutCard.dart';
 import 'package:surgetv/components/RankingLayoutCard.dart';
 import 'package:surgetv/components/RecentlyViewedLayoutCard.dart';
-import 'package:surgetv/pages/search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:surgetv/router/app_routes.dart';
 import 'home_logic.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,10 +34,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SearchPage()));
+                      Get.toNamed(AppRoutes.searchPage);
                     },
                     icon: const Icon(Icons.search),
                   ),

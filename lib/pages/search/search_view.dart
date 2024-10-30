@@ -2,80 +2,58 @@
 
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/ElevationCard.dart';
+import 'package:get/get.dart';
 
-class SearchPage extends StatefulWidget {
+import 'search_logic.dart';
+import 'search_state.dart';
+
+class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  String? selectedColor;
-  List<String> searchHistory = <String>[];
-
-  String? lastSearch = '';
-
-  // 推荐列表
-  List<String> recommendList = <String>[
-    '光辉岁月',
-    '夏目友人帐',
-    '灌篮高手',
-    '龙猫',
-    '千与千寻',
-  ];
-
-  Iterable<Widget> getHistoryList(SearchController controller) {
-    return searchHistory.map((color) => ListTile(
-          leading: const Icon(Icons.history),
-          title: Text(color),
-          trailing: IconButton(
-              icon: const Icon(Icons.call_missed),
-              onPressed: () {
-                controller.text = color;
-                controller.selection =
-                    TextSelection.collapsed(offset: controller.text.length);
-              }),
-          onTap: () {
-            controller.closeView(color);
-            handleSelection(color);
-          },
-        ));
-  }
-
-  Iterable<Widget> getSuggestions(SearchController controller) {
-    final String input = controller.value.text;
-    return recommendList
-        .where((color) => color.contains(input))
-        .map((filteredColor) => ListTile(
-              leading: const Icon(Icons.search),
-              title: Text(filteredColor),
-              trailing: IconButton(
-                  icon: const Icon(Icons.call_missed),
-                  onPressed: () {
-                    controller.text = filteredColor;
-                    controller.selection =
-                        TextSelection.collapsed(offset: controller.text.length);
-                  }),
-              onTap: () {
-                controller.closeView(filteredColor);
-                handleSelection(filteredColor);
-              },
-            ));
-  }
-
-  void handleSelection(String color) {
-    setState(() {
-      selectedColor = color;
-      if (searchHistory.length >= 5) {
-        searchHistory.removeLast();
-      }
-      searchHistory.insert(0, color);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final logic = Get.find<SearchLogic>();
+    final state = Get.find<SearchLogic>().state;
+
+    Iterable<Widget> getHistoryList(SearchController controller) {
+      return state.searchHistory.map((color) => ListTile(
+            leading: const Icon(Icons.history),
+            title: Text(color),
+            trailing: IconButton(
+                icon: const Icon(Icons.call_missed),
+                onPressed: () {
+                  controller.text = color;
+                  controller.selection =
+                      TextSelection.collapsed(offset: controller.text.length);
+                }),
+            onTap: () {
+              controller.closeView(color);
+              logic.handleSelection(color);
+            },
+          ));
+    }
+
+    Iterable<Widget> getSuggestions(SearchController controller) {
+      final String input = controller.value.text;
+      return state.recommendList
+          .where((color) => color.contains(input))
+          .map((filteredColor) => ListTile(
+                leading: const Icon(Icons.search),
+                title: Text(filteredColor),
+                trailing: IconButton(
+                    icon: const Icon(Icons.call_missed),
+                    onPressed: () {
+                      controller.text = filteredColor;
+                      controller.selection = TextSelection.collapsed(
+                          offset: controller.text.length);
+                    }),
+                onTap: () {
+                  controller.closeView(filteredColor);
+                  logic.handleSelection(filteredColor);
+                },
+              ));
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -84,10 +62,10 @@ class _SearchPageState extends State<SearchPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SearchAnchor.bar(
-              barHintText: lastSearch,
+              barHintText: state.lastSearch.value,
               suggestionsBuilder: (context, controller) {
                 if (controller.text.isEmpty) {
-                  if (searchHistory.isNotEmpty) {
+                  if (state.searchHistory.isNotEmpty) {
                     return getHistoryList(controller);
                   }
                   return <Widget>[
