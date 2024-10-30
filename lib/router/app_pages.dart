@@ -9,6 +9,8 @@ import 'package:surgetv/pages/index/index_logic.dart';
 import 'package:surgetv/pages/index/index_view.dart';
 import 'package:surgetv/pages/person/person_view.dart';
 import 'package:surgetv/pages/person/person_logic.dart';
+import 'package:surgetv/pages/setting/setting_logic.dart';
+import 'package:surgetv/pages/setting/setting_view.dart';
 
 import 'app_routes.dart';
 
@@ -47,6 +49,13 @@ class AppPages {
       page: () => const PersonPage(),
       binds: [
         Bind.lazyPut(() => PersonLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.settingPage,
+      page: () => const SettingPage(),
+      binds: [
+        Bind.lazyPut(() => SettingLogic()),
       ],
     ),
   ];

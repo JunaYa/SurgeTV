@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/components/coupon_dialog.dart';
 import 'package:surgetv/components/version_checker.dart';
-import 'package:surgetv/pages/gift/gift_view.dart';
-import 'package:surgetv/router/app_routes.dart';
+import 'package:surgetv/pages/about.dart';
+import 'package:surgetv/pages/feedback.dart';
+import 'package:surgetv/pages/gift.dart';
+import 'package:surgetv/pages/login.dart';
+import 'package:surgetv/pages/setting/setting_view.dart';
 
-class PersonPage extends StatelessWidget {
+class PersonPage extends StatefulWidget {
   const PersonPage({super.key});
+
+  @override
+  State<PersonPage> createState() => _PersonPageState();
+}
+
+class _PersonPageState extends State<PersonPage> {
+  Future<void> _redeemCoupon(String code) async {
+    // 模拟网络请求
+    await Future.delayed(const Duration(seconds: 1));
+    if (code == 'TEST123') {
+      throw '该优惠券已被使用';
+    }
+    // 处理兑换逻辑
+    debugPrint('兑换成功：$code');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +60,10 @@ class PersonPage extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Get.toNamed(AppRoutes.loginPage);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
             },
           ),
           const SizedBox(height: 20),
@@ -90,6 +110,7 @@ class PersonPage extends StatelessWidget {
                   onPressed: () {
                     CouponDialog.show(
                       context: context,
+                      onSubmit: _redeemCoupon,
                       description: '输入您收到的优惠券序列号，兑换专属优惠。\n每个序列号仅能使用一次。',
                     );
                   },
@@ -100,7 +121,11 @@ class PersonPage extends StatelessWidget {
                   icon: const Icon(Icons.chat_outlined),
                   title: '意见反馈',
                   onPressed: () {
-                    Get.toNamed(AppRoutes.feedbackPage);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FeedbackPage()),
+                    );
                   },
                 ),
                 const DividerWidget(),
@@ -109,7 +134,11 @@ class PersonPage extends StatelessWidget {
                   icon: const Icon(Icons.settings_outlined),
                   title: '设置',
                   onPressed: () {
-                    Get.toNamed(AppRoutes.settingPage);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingPage()),
+                    );
                   },
                 ),
                 const DividerWidget(),
@@ -118,7 +147,11 @@ class PersonPage extends StatelessWidget {
                   icon: const Icon(Icons.tips_and_updates_outlined),
                   title: '关于',
                   onPressed: () {
-                    Get.toNamed(AppRoutes.aboutPage);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutPage()),
+                    );
                   },
                 ),
               ],
