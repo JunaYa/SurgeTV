@@ -8,5 +8,10 @@
   "about": "About",
   "versionInfo": "Version Info",
   "privacyAgreement": "Privacy Agreement",
-  "userAgreement": "User Agreement"
+  "userAgreement": "User Agreement",
+  "shop": "Shop",
+  "coupon": "Coupon",
+  "login": "Login/Register",
+  "playHistory": "Play History",
+  "checkVersion": "Check Version"
 }

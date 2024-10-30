@@ -8,5 +8,10 @@
   "about": "关于",
   "versionInfo": "版本信息",
   "privacyAgreement": "隐私协议",
-  "userAgreement": "用户协议"
+  "userAgreement": "用户协议",
+  "shop": "商店",
+  "coupon": "兑换码",
+  "login": "登录/注册",
+  "playHistory": "播放历史",
+  "checkVersion": "检测版本"
 }

@@ -17,6 +17,8 @@ import 'package:surgetv/pages/search/search_logic.dart';
 import 'package:surgetv/pages/search/search_view.dart';
 import 'package:surgetv/pages/setting/setting_logic.dart';
 import 'package:surgetv/pages/setting/setting_view.dart';
+import 'package:surgetv/pages/shop/shop_logic.dart';
+import 'package:surgetv/pages/shop/shop_view.dart';
 import 'package:surgetv/pages/webpage/webpage_logic.dart';
 import 'package:surgetv/pages/webpage/webpage_view.dart';
 
@@ -92,6 +94,13 @@ class AppPages {
       page: () => const WebpagePage(),
       binds: [
         Bind.lazyPut(() => WebpageLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.shopPage,
+      page: () => ShopPage(),
+      binds: [
+        Bind.lazyPut(() => ShopLogic()),
       ],
     ),
   ];

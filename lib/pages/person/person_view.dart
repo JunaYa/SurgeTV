@@ -6,12 +6,15 @@ import 'package:surgetv/components/coupon_dialog.dart';
 import 'package:surgetv/components/version_checker.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
 import 'package:surgetv/router/app_routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonPage extends StatelessWidget {
   const PersonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     Color surfaceTint = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(),
@@ -25,12 +28,12 @@ class PersonPage extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  'SurgeTV',
+                  i18n.appName,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  '登录/注册',
+                  i18n.login,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -60,14 +63,14 @@ class PersonPage extends StatelessWidget {
                 // 播放历史
                 FieldItemWidget(
                   icon: const Icon(Icons.history),
-                  title: '播放历史',
+                  title: i18n.playHistory,
                   onPressed: () {},
                 ),
                 const DividerWidget(),
                 // 检测新版本
                 FieldItemWidget(
                   icon: const Icon(Icons.cloud_download_outlined),
-                  title: '检测版本',
+                  title: i18n.checkVersion,
                   onPressed: () {
                     AppVersionChecker.checkForUpdate(context);
                   },
@@ -86,7 +89,7 @@ class PersonPage extends StatelessWidget {
                 // 兑换码
                 FieldItemWidget(
                   icon: const Icon(Icons.currency_exchange_outlined),
-                  title: '兑换码',
+                  title: i18n.coupon,
                   onPressed: () {
                     CouponDialog.show(
                       context: context,
@@ -98,7 +101,7 @@ class PersonPage extends StatelessWidget {
                 // 意见反馈
                 FieldItemWidget(
                   icon: const Icon(Icons.chat_outlined),
-                  title: '意见反馈',
+                  title: i18n.feedback,
                   onPressed: () {
                     Get.toNamed(AppRoutes.feedbackPage);
                   },
@@ -107,7 +110,7 @@ class PersonPage extends StatelessWidget {
                 // 设置
                 FieldItemWidget(
                   icon: const Icon(Icons.settings_outlined),
-                  title: '设置',
+                  title: i18n.setting,
                   onPressed: () {
                     Get.toNamed(AppRoutes.settingPage);
                   },
@@ -116,7 +119,7 @@ class PersonPage extends StatelessWidget {
                 // 关于
                 FieldItemWidget(
                   icon: const Icon(Icons.tips_and_updates_outlined),
-                  title: '关于',
+                  title: i18n.about,
                   onPressed: () {
                     Get.toNamed(AppRoutes.aboutPage);
                   },

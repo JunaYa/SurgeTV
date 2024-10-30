@@ -2,9 +2,10 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/GradientButton.dart';
-import 'package:surgetv/pages/shop.dart';
+import 'package:surgetv/router/app_routes.dart';
 
 class WalletInfoBoard extends StatelessWidget {
   const WalletInfoBoard({super.key});
@@ -47,11 +48,7 @@ class WalletInfoBoard extends StatelessWidget {
                       end: Alignment.bottomRight,
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShopPage()),
-                      );
+                      Get.toNamed(AppRoutes.shopPage);
                     },
                     child: Text('充值', style: cardTextStyle),
                   ),

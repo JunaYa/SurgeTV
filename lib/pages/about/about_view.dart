@@ -1,8 +1,8 @@
 // about page
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/DividerWidget.dart';
-import 'package:surgetv/pages/webpage/webpage_view.dart';
 import 'package:get/get.dart';
+import 'package:surgetv/router/app_routes.dart';
 import 'about_logic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,28 +13,28 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Bind.find<AboutLogic>();
     final state = Bind.find<AboutLogic>().state;
-    final i18n = AppLocalizations.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-            title: Text('${i18n!.about} ${state.packageInfo.value.appName}')),
+            title: Text('${i18n.about} ${state.packageInfo.value.appName}')),
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: <Widget>[
             FieldItemWidget(
-              title: i18n!.versionInfo,
+              title: i18n.versionInfo,
               subTitle: 'V${state.packageInfo.value.version}',
               showArrow: false,
             ),
             const DividerWidget(),
             // 隐私协议
             FieldItemWidget(
-              title: i18n!.privacyAgreement,
+              title: i18n.privacyAgreement,
               showArrow: true,
               onPressed: () {
-                Get.to(
-                  () => const WebpagePage(),
+                Get.toNamed(
+                  AppRoutes.webpagePage,
                   arguments: {'url': 'privacy_agreement.html', 'title': '隐私协议'},
                 );
               },
@@ -42,11 +42,11 @@ class AboutPage extends StatelessWidget {
             const DividerWidget(),
             // 用户协议
             FieldItemWidget(
-              title: i18n!.userAgreement,
+              title: i18n.userAgreement,
               showArrow: true,
               onPressed: () {
-                Get.to(
-                  () => const WebpagePage(),
+                Get.toNamed(
+                  AppRoutes.webpagePage,
                   arguments: {'url': 'user_agreement.html', 'title': '用户协议'},
                 );
               },

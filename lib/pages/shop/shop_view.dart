@@ -1,155 +1,128 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/GradientButton.dart';
-import 'package:surgetv/dao/shop_dao.dart';
-import 'package:surgetv/model/shop.dart';
+import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'shop_logic.dart';
 
 class ShopItemType {
   static const int normal = 2;
   static const int vip = 1;
 }
 
-class ShopPage extends StatefulWidget {
+class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
 
   @override
-  State<ShopPage> createState() => _ShopPageState();
-}
-
-class _ShopPageState extends State<ShopPage> {
-  int _currentSelect = 0;
-
-  // loading
-  bool _loading = false;
-  // 商品列表
-  List<Product> _productList = [];
-
-  void _getProductList() async {
-    setState(() {
-      _loading = true;
-    });
-    var res = await ShopDao.getProductList();
-    if (res.result) {
-      setState(() {
-        _productList = res.data;
-      });
-    }
-    setState(() {
-      _loading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getProductList();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('商店'),
-      ),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Featured Items Grid Section
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            childAspectRatio: 1.5,
-                          ),
-                          itemCount:
-                              _productList.length, // Number of grid items
-                          itemBuilder: (context, index) {
-                            // 普通商品
-                            if (_productList[index].type ==
-                                ShopItemType.normal) {
-                              return ShopItem(
-                                price:
-                                    '${_productList[index].price}${_productList[index].currency}',
-                                tips: '仅限一次',
-                                benefit: '${_productList[index].coinNum}币',
-                                selected: _currentSelect == index,
-                                onPressed: () {
-                                  setState(() {
-                                    _currentSelect = index;
-                                  });
-                                },
-                              );
-                            }
-                            // vip商品
-                            if (_productList[index].type == ShopItemType.vip) {
-                              return ShopVipItem(
-                                name: _productList[index].name,
-                                price:
-                                    '${_productList[index].price}${_productList[index].currency}',
-                                benefit: '30天全场免费看',
-                                selected: _currentSelect == index,
-                                onPressed: () {
-                                  setState(() {
-                                    _currentSelect = index;
-                                  });
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  // 立即充值按钮
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    child: GradientButton(
-                      onPressed: () {},
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 230, 45, 32),
-                          Color.fromARGB(255, 233, 40, 88),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      child: const Text(
-                        '立即充值',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // 开通前请阅读
-                  Container(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: const Text(
-                      '开通前请阅读《会员服务协议》及《自动续费付费规则》',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  // 充值声明
+    final logic = Get.find<ShopLogic>();
+    final state = Get.find<ShopLogic>().state;
+    final i18n = AppLocalizations.of(context)!;
 
-                  const RechargeDeclaration(),
-                ],
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          title: Text(i18n.shop),
+        ),
+        body: state.loading.value
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Featured Items Grid Section
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 16,
+                              childAspectRatio: 1.5,
+                            ),
+                            itemCount: state
+                                .productList.length, // Number of grid items
+                            itemBuilder: (context, index) {
+                              // 普通商品
+                              if (state.productList[index].type ==
+                                  ShopItemType.normal) {
+                                return ShopItem(
+                                  price:
+                                      '${state.productList[index].price}${state.productList[index].currency}',
+                                  tips: '仅限一次',
+                                  benefit:
+                                      '${state.productList[index].coinNum}币',
+                                  selected: state.currentSelect == index,
+                                  onPressed: () {
+                                    state.currentSelect.value = index;
+                                  },
+                                );
+                              }
+                              // vip商品
+                              if (state.productList[index].type ==
+                                  ShopItemType.vip) {
+                                return ShopVipItem(
+                                  name: state.productList[index].name,
+                                  price:
+                                      '${state.productList[index].price}${state.productList[index].currency}',
+                                  benefit: '30天全场免费看',
+                                  selected: state.currentSelect == index,
+                                  onPressed: () {
+                                    state.currentSelect.value = index;
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 立即充值按钮
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
+                      child: GradientButton(
+                        onPressed: () {},
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 230, 45, 32),
+                            Color.fromARGB(255, 233, 40, 88),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        child: const Text(
+                          '立即充值',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // 开通前请阅读
+                    Container(
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      child: const Text(
+                        '开通前请阅读《会员服务协议》及《自动续费付费规则》',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    // 充值声明
+
+                    const RechargeDeclaration(),
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }
