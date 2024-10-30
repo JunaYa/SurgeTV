@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/components/DividerWidget.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/components/coupon_dialog.dart';
 import 'package:surgetv/components/version_checker.dart';
-import 'package:surgetv/pages/about.dart';
-import 'package:surgetv/pages/feedback.dart';
-import 'package:surgetv/pages/login.dart';
-import 'package:surgetv/pages/setting/setting_view.dart';
+import 'package:surgetv/router/app_routes.dart';
 
 class PersonPage extends StatefulWidget {
   const PersonPage({super.key});
@@ -50,10 +48,7 @@ class _PersonPageState extends State<PersonPage> {
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
+              Get.toNamed(AppRoutes.loginPage);
             },
           ),
           const SizedBox(height: 20),
@@ -110,11 +105,7 @@ class _PersonPageState extends State<PersonPage> {
                   icon: const Icon(Icons.chat_outlined),
                   title: '意见反馈',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FeedbackPage()),
-                    );
+                    Get.toNamed(AppRoutes.feedbackPage);
                   },
                 ),
                 const DividerWidget(),
@@ -123,11 +114,7 @@ class _PersonPageState extends State<PersonPage> {
                   icon: const Icon(Icons.settings_outlined),
                   title: '设置',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingPage()),
-                    );
+                    Get.toNamed(AppRoutes.settingPage);
                   },
                 ),
                 const DividerWidget(),
@@ -136,11 +123,7 @@ class _PersonPageState extends State<PersonPage> {
                   icon: const Icon(Icons.tips_and_updates_outlined),
                   title: '关于',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AboutPage()),
-                    );
+                    Get.toNamed(AppRoutes.aboutPage);
                   },
                 ),
               ],

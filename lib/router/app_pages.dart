@@ -7,6 +7,8 @@ import 'package:surgetv/pages/home/home_logic.dart';
 import 'package:surgetv/pages/home/home_view.dart';
 import 'package:surgetv/pages/index/index_logic.dart';
 import 'package:surgetv/pages/index/index_view.dart';
+import 'package:surgetv/pages/login/login_logic.dart';
+import 'package:surgetv/pages/login/login_view.dart';
 import 'package:surgetv/pages/person/person_view.dart';
 import 'package:surgetv/pages/person/person_logic.dart';
 import 'package:surgetv/pages/setting/setting_logic.dart';
@@ -28,6 +30,13 @@ class AppPages {
       page: () => const HomePage(),
       binds: [
         Bind.lazyPut(() => HomeLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.loginPage,
+      page: () => const LoginPage(),
+      binds: [
+        Bind.lazyPut(() => LoginLogic()),
       ],
     ),
     GetPage(
