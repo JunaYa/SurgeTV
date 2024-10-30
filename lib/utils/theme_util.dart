@@ -23,8 +23,12 @@ class ThemeUtil {
     bool? useMaterial3 = Utils().prefUtil.getValue<bool>('useMaterial3');
 
     String url = ColorImageProvider.values[themeImage!.index].url;
-    ColorScheme imageColorScheme =
-        await ColorScheme.fromImageProvider(provider: NetworkImage(url));
+    ColorScheme? imageColorScheme;
+
+    if (colorSelectionMethod == ColorSelectionMethod.image) {
+      imageColorScheme =
+          await ColorScheme.fromImageProvider(provider: NetworkImage(url));
+    }
 
     if (brightness == Brightness.light) {
       return ThemeData(
@@ -41,7 +45,7 @@ class ThemeUtil {
       return ThemeData(
         colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
             ? colorSelected?.color
-            : (imageColorScheme).primary,
+            : imageColorScheme?.primary,
         useMaterial3: useMaterial3,
         brightness: Brightness.dark,
       );

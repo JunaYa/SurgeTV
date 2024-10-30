@@ -29,7 +29,7 @@ class _WebViewAppState extends State<WebViewApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter WebView'),
+        title: Text(widget.title),
       ),
       body: WebViewWidget(
         controller: controller,

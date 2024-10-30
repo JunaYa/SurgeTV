@@ -39,7 +39,8 @@ void main() {
       builder: (context, widget) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.linear(Utils().prefUtil.getValue<double>('fontScale')!),
+            textScaler: TextScaler.linear(
+                Utils().prefUtil.getValue<double>('fontScale')!),
           ),
           child: widget!,
         );
@@ -62,29 +63,3 @@ void main() {
         .showBug('Flutter error', error: error, stackTrace: stack);
   });
 }
-
-// class App extends StatefulWidget {
-//   const App({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   State<App> createState() => _AppState();
-// }
-
-// class _AppState extends State<App> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<ThemeManager>(
-//       builder: (context, themeManager, child) => MaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-//         theme: themeManager.lightTheme,
-//         darkTheme: themeManager.darkTheme,
-//         themeMode: themeManager.themeMode,
-//         home: const IndexPage(),
-//         localizationsDelegates: AppLocalizations.localizationsDelegates,
-//         supportedLocales: AppLocalizations.supportedLocales,
-//       ),
-//     );
-//   }
-// }

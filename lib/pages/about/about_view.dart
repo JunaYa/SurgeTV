@@ -1,51 +1,28 @@
 // about page
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:surgetv/components/DividerWidget.dart';
 import 'package:surgetv/pages/webpage.dart';
+import 'package:get/get.dart';
+import 'about_logic.dart';
 
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
-  PackageInfo _packageInfo = PackageInfo(
-    appName: 'Unknown',
-    packageName: 'Unknown',
-    version: 'Unknown',
-    buildNumber: 'Unknown',
-    buildSignature: 'Unknown',
-    installerStore: 'Unknown',
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    _initPackageInfo();
-  }
-
-  Future<void> _initPackageInfo() async {
-    final info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final logic = Bind.find<AboutLogic>();
+    final state = logic.state;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('关于 ${_packageInfo.appName}'),
+        title: Text('关于 ${state.packageInfo.appName}'),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: <Widget>[
           FieldItemWidget(
             title: '版本信息',
-            subTitle: 'V${_packageInfo.version}',
+            subTitle: 'V${state.packageInfo.version}',
             showArrow: false,
           ),
           const DividerWidget(),
@@ -54,13 +31,10 @@ class _AboutPageState extends State<AboutPage> {
             title: '隐私协议',
             showArrow: true,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const WebViewApp(
-                    url: 'privacy_agreement.html',
-                    title: '隐私协议',
-                  ),
+              Get.to(
+                () => const WebViewApp(
+                  url: 'privacy_agreement.html',
+                  title: '隐私协议',
                 ),
               );
             },
@@ -71,13 +45,10 @@ class _AboutPageState extends State<AboutPage> {
             title: '用户协议',
             showArrow: true,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const WebViewApp(
-                    url: 'user_agreement.html',
-                    title: '用户协议',
-                  ),
+              Get.to(
+                () => const WebViewApp(
+                  url: 'user_agreement.html',
+                  title: '用户协议',
                 ),
               );
             },

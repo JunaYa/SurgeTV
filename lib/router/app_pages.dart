@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:surgetv/pages/about/about_logic.dart';
+import 'package:surgetv/pages/about/about_view.dart';
 import 'package:surgetv/pages/discover/discover_logic.dart';
 import 'package:surgetv/pages/discover/discover_view.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
@@ -65,6 +67,13 @@ class AppPages {
       page: () => const SettingPage(),
       binds: [
         Bind.lazyPut(() => SettingLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.aboutPage,
+      page: () => const AboutPage(),
+      binds: [
+        Bind.lazyPut(() => AboutLogic()),
       ],
     ),
   ];
