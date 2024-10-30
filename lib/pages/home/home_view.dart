@@ -18,99 +18,102 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Bind.find<HomeLogic>();
     final state = Bind.find<HomeLogic>().state;
-    final colorScheme = Theme.of(context).colorScheme;
     final i18n = AppLocalizations.of(context)!;
-    final size = MediaQuery.sizeOf(context);
 
     final double width = MediaQuery.sizeOf(context).width;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.cast),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsetsDirectional.only(end: 16.0),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchPage()));
-                  },
-                  icon: const Icon(Icons.search),
-                ),
-                const SizedBox(width: 16),
-                Lottie.asset(
-                  "assets/lotties/gift.json",
-                  height: 36,
-                  width: 36,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: state.dataList.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Column(
-              children: [
-                const SizedBox(height: 20),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: width * 9 / 16),
-                  child: Swiper(
-                    itemBuilder: (BuildContext context, int idx) {
-                      return BannerCard(
-                        videoItem: state.dataList[index].data[idx],
-                      );
+    return GetBuilder<HomeLogic>(
+      init: logic,
+      builder: (logic) => Scaffold(
+        appBar: AppBar(
+          leading: const Icon(Icons.cast),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsetsDirectional.only(end: 16.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SearchPage()));
                     },
-                    viewportFraction: 0.8,
-                    scale: 0.9,
-                    itemCount: state.dataList[index].data.length,
+                    icon: const Icon(Icons.search),
                   ),
-                ),
-              ],
-            );
-          } else if (index == 1) {
-            return RecentlyViewedLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else if (index == 2) {
-            return HotVideoLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else if (index == 3) {
-            return RankingLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else if (index == 4) {
-            return NeverMissingLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else if (index == 5) {
-            return RankingLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else if (index == 6) {
-            return NeverMissingLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          } else {
-            return RecentlyViewedLayoutCard(
-              state.dataList[index].id,
-              category: state.dataList[index],
-            );
-          }
-        },
+                  const SizedBox(width: 16),
+                  Lottie.asset(
+                    "assets/lotties/gift.json",
+                    height: 36,
+                    width: 36,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        body: Obx(
+          () => ListView.builder(
+            itemCount: state.dataList.length,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxHeight: width * 9 / 16),
+                      child: Swiper(
+                        itemBuilder: (BuildContext context, int idx) {
+                          return BannerCard(
+                            videoItem: state.dataList[index].data[idx],
+                          );
+                        },
+                        viewportFraction: 0.8,
+                        scale: 0.9,
+                        itemCount: state.dataList[index].data.length,
+                      ),
+                    ),
+                  ],
+                );
+              } else if (index == 1) {
+                return RecentlyViewedLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else if (index == 2) {
+                return HotVideoLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else if (index == 3) {
+                return RankingLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else if (index == 4) {
+                return NeverMissingLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else if (index == 5) {
+                return RankingLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else if (index == 6) {
+                return NeverMissingLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              } else {
+                return RecentlyViewedLayoutCard(
+                  state.dataList[index].id,
+                  category: state.dataList[index],
+                );
+              }
+            },
+          ),
+        ),
       ),
     );
   }

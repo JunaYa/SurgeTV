@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
+import 'package:surgetv/model/home.dart';
 
 class HomeState {
-  late RxList<dynamic> dataList;
+  late RxList<Category> dataList;
   late RxBool isLoading;
 
   HomeState() {
     ///Initialize variables
-    dataList = RxList<dynamic>();
-    isLoading = RxBool(true);
+    dataList = <Category>[].obs;
+    isLoading = true.obs;
   }
 }
