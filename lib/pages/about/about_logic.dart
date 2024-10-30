@@ -8,12 +8,12 @@ class AboutLogic extends GetxController {
 
   @override
   void onReady() {
-    _initPackageInfo();
+    initPackageInfo();
     super.onReady();
   }
 
-  Future<void> _initPackageInfo() async {
+  Future<void> initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
-    state.packageInfo = info;
+    state.packageInfo.value = info;
   }
 }

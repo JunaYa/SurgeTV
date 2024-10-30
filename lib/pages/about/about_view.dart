@@ -12,50 +12,51 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Bind.find<AboutLogic>();
-    final state = logic.state;
+    final state = Bind.find<AboutLogic>().state;
     final i18n = AppLocalizations.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${i18n!.about} ${state.packageInfo.appName}'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        children: <Widget>[
-          FieldItemWidget(
-            title: '版本信息',
-            subTitle: 'V${state.packageInfo.version}',
-            showArrow: false,
-          ),
-          const DividerWidget(),
-          // 隐私协议
-          FieldItemWidget(
-            title: '隐私协议',
-            showArrow: true,
-            onPressed: () {
-              Get.to(
-                () => const WebViewApp(
-                  url: 'privacy_agreement.html',
-                  title: '隐私协议',
-                ),
-              );
-            },
-          ),
-          const DividerWidget(),
-          // 用户协议
-          FieldItemWidget(
-            title: '用户协议',
-            showArrow: true,
-            onPressed: () {
-              Get.to(
-                () => const WebViewApp(
-                  url: 'user_agreement.html',
-                  title: '用户协议',
-                ),
-              );
-            },
-          ),
-        ],
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+            title: Text('${i18n!.about} ${state.packageInfo.value.appName}')),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: <Widget>[
+            FieldItemWidget(
+              title: '版本信息',
+              subTitle: 'V${state.packageInfo.value.version}',
+              showArrow: false,
+            ),
+            const DividerWidget(),
+            // 隐私协议
+            FieldItemWidget(
+              title: '隐私协议',
+              showArrow: true,
+              onPressed: () {
+                Get.to(
+                  () => const WebViewApp(
+                    url: 'privacy_agreement.html',
+                    title: '隐私协议',
+                  ),
+                );
+              },
+            ),
+            const DividerWidget(),
+            // 用户协议
+            FieldItemWidget(
+              title: '用户协议',
+              showArrow: true,
+              onPressed: () {
+                Get.to(
+                  () => const WebViewApp(
+                    url: 'user_agreement.html',
+                    title: '用户协议',
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
