@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:surgetv/components/DividerWidget.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/components/coupon_dialog.dart';
 import 'package:surgetv/components/version_checker.dart';
 import 'package:surgetv/pages/about.dart';
 import 'package:surgetv/pages/feedback.dart';
-import 'package:surgetv/pages/gift.dart';
 import 'package:surgetv/pages/login.dart';
 import 'package:surgetv/pages/setting/setting_view.dart';
 
@@ -17,16 +17,6 @@ class PersonPage extends StatefulWidget {
 }
 
 class _PersonPageState extends State<PersonPage> {
-  Future<void> _redeemCoupon(String code) async {
-    // 模拟网络请求
-    await Future.delayed(const Duration(seconds: 1));
-    if (code == 'TEST123') {
-      throw '该优惠券已被使用';
-    }
-    // 处理兑换逻辑
-    debugPrint('兑换成功：$code');
-  }
-
   @override
   Widget build(BuildContext context) {
     Color surfaceTint = Theme.of(context).colorScheme.primary;
@@ -110,7 +100,6 @@ class _PersonPageState extends State<PersonPage> {
                   onPressed: () {
                     CouponDialog.show(
                       context: context,
-                      onSubmit: _redeemCoupon,
                       description: '输入您收到的优惠券序列号，兑换专属优惠。\n每个序列号仅能使用一次。',
                     );
                   },

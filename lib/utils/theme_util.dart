@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:surgetv/config/constants.dart';
@@ -15,32 +13,38 @@ class ThemeUtil {
   }
 
   Future<ThemeData> buildTheme(Brightness brightness) async {
-    final color = Utils().prefUtil.getValue<int>('color');
-    var seedColor = switch (color) {
-      0 => ColorSeed.baseColor.color,
-      1 => ColorSeed.indigo.color,
-      2 => ColorSeed.blue.color,
-      3 => ColorSeed.teal.color,
-      4 => ColorSeed.green.color,
-      5 => ColorSeed.yellow.color,
-      6 => ColorSeed.orange.color,
-      7 => ColorSeed.deepOrange.color,
-      8 => ColorSeed.pink.color,
-      //-1为系统配色，如果选了-1，肯定有
-      _ => await getDynamicColor()
-    };
+    ColorSelectionMethod colorSelectionMethod = Utils()
+        .prefUtil
+        .getValue<ColorSelectionMethod>('colorSelectionMethod')!;
+    ColorSeed? colorSelected =
+        Utils().prefUtil.getValue<ColorSeed>('themeColor');
+    ColorImageProvider? themeImage =
+        Utils().prefUtil.getValue<ColorImageProvider>('themeImage');
+    bool? useMaterial3 = Utils().prefUtil.getValue<bool>('useMaterial3');
 
-    var themeData = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: seedColor,
-        brightness: brightness,
-        dynamicSchemeVariant: color == 4
-            ? DynamicSchemeVariant.fidelity
-            : DynamicSchemeVariant.tonalSpot,
-      ),
-      fontFamily: Platform.isWindows ? '微软雅黑' : null,
-    );
+    String url = ColorImageProvider.values[themeImage!.index].url;
+    ColorScheme imageColorScheme =
+        await ColorScheme.fromImageProvider(provider: NetworkImage(url));
 
-    return themeData;
+    if (brightness == Brightness.light) {
+      return ThemeData(
+        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
+            ? colorSelected?.color
+            : null,
+        colorScheme: colorSelectionMethod == ColorSelectionMethod.image
+            ? imageColorScheme
+            : null,
+        useMaterial3: useMaterial3,
+        brightness: Brightness.light,
+      );
+    } else {
+      return ThemeData(
+        colorSchemeSeed: colorSelectionMethod == ColorSelectionMethod.colorSeed
+            ? colorSelected?.color
+            : (imageColorScheme).primary,
+        useMaterial3: useMaterial3,
+        brightness: Brightness.dark,
+      );
+    }
   }
 }

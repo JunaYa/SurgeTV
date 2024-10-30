@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:surgetv/config/constants.dart';
 import 'package:surgetv/utils/utils.dart';
 
 class PrefUtil {
@@ -14,10 +16,16 @@ class PrefUtil {
     'autoSync',
     //动态配色支持
     'supportDynamicColor',
+    //颜色选择方法
+    'colorSelectionMethod',
     //主题颜色
-    'color',
+    'themeColor',
+    //主题图片
+    'themeImage',
     //主题模式
     'themeMode',
+    //Material版本
+    'useMaterial3',
     //动态配色
     'dynamicColor',
     //图片质量
@@ -91,10 +99,15 @@ class PrefUtil {
         _prefs.getBool('supportDynamicColor') ??
             await Utils().themeUtil.supportDynamicColor());
     await _prefs.setInt(
-        'color',
-        _prefs.getInt('color') ??
+        'themeColor',
+        _prefs.getInt('themeColor') ??
             (await Utils().themeUtil.supportDynamicColor() ? -1 : 0));
+    await _prefs.setInt('themeImage', _prefs.getInt('themeImage') ?? 0);
+    await _prefs.setInt(
+        'colorSelectionMethod', _prefs.getInt('colorSelectionMethod') ?? 0);
     await _prefs.setInt('themeMode', _prefs.getInt('themeMode') ?? 0);
+    await _prefs.setBool(
+        'useMaterial3', _prefs.getBool('useMaterial3') ?? true);
     await _prefs.setBool(
         'dynamicColor', _prefs.getBool('dynamicColor') ?? true);
     await _prefs.setInt('quality', _prefs.getInt('quality') ?? 2);
@@ -120,6 +133,14 @@ class PrefUtil {
       await _prefs.setString(key, value as String);
     } else if (T == List<String>) {
       await _prefs.setStringList(key, value as List<String>);
+    } else if (T == ThemeMode) {
+      await _prefs.setInt(key, (value as ThemeMode).index);
+    } else if (T == ColorSeed) {
+      await _prefs.setInt(key, (value as ColorSeed).index);
+    } else if (T == ColorImageProvider) {
+      await _prefs.setInt(key, (value as ColorImageProvider).index);
+    } else if (T == ColorSelectionMethod) {
+      await _prefs.setInt(key, (value as ColorSelectionMethod).index);
     } else {
       throw ArgumentError('Unsupported type: $T');
     }
@@ -136,6 +157,14 @@ class PrefUtil {
       return _prefs.getString(key) as T?;
     } else if (T == List<String>) {
       return _prefs.getStringList(key) as T?;
+    } else if (T == ThemeMode) {
+      return ThemeMode.values[_prefs.getInt(key) ?? 0] as T?;
+    } else if (T == ColorSeed) {
+      return ColorSeed.values[_prefs.getInt(key) ?? 0] as T?;
+    } else if (T == ColorImageProvider) {
+      return ColorImageProvider.values[_prefs.getInt(key) ?? 0] as T?;
+    } else if (T == ColorSelectionMethod) {
+      return ColorSelectionMethod.values[_prefs.getInt(key) ?? 0] as T?;
     } else {
       throw ArgumentError('Unsupported type: $T');
     }

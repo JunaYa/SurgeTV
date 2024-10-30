@@ -7,7 +7,6 @@ class SettingState {
   late ThemeMode themeMode;
   late ColorSeed colorSelected;
   late ColorImageProvider imageSelected;
-  late ColorScheme? imageColorScheme = const ColorScheme.light();
   late ColorSelectionMethod colorSelectionMethod =
       ColorSelectionMethod.colorSeed;
 

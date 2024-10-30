@@ -42,12 +42,8 @@ class SettingLogic extends GetxController {
     await Utils()
         .prefUtil
         .setValue('colorSelectionMethod', ColorSelectionMethod.image);
-    final String url = ColorImageProvider.values[value].url;
-    var newScheme =
-        await ColorScheme.fromImageProvider(provider: NetworkImage(url));
     state.colorSelectionMethod = ColorSelectionMethod.image;
     state.imageSelected = ColorImageProvider.values[value];
-    state.imageColorScheme = newScheme;
     Get.changeTheme(await Utils().themeUtil.buildTheme(Brightness.light));
     Get.changeTheme(await Utils().themeUtil.buildTheme(Brightness.dark));
   }
