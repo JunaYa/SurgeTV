@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/model/home.dart';
-import 'package:surgetv/pages/video.dart';
+import 'package:surgetv/pages/video/video_view.dart';
+import 'package:surgetv/router/app_routes.dart';
 
 // 一定不能错过
 
@@ -51,14 +53,9 @@ class NeverMissingLayoutCard extends StatelessWidget {
                   children: category.data.map((VideoItem item) {
                     return GestureDetector(
                       onTap: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoPage(
-                              videoItem: item,
-                            ),
-                          ),
-                        ),
+                        Get.toNamed(AppRoutes.videoPage, arguments: {
+                          'videoId': item.id,
+                        })
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

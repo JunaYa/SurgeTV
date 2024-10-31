@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/components/GradientButton.dart';
 import 'package:surgetv/model/home.dart';
-import 'package:surgetv/pages/video.dart';
+import 'package:surgetv/router/app_routes.dart';
 
 class BannerCard extends StatefulWidget {
   const BannerCard({super.key, required this.videoItem});
@@ -50,14 +51,9 @@ class _BannerCardState extends State<BannerCard> {
                       end: Alignment.bottomRight,
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VideoPage(
-                            videoItem: widget.videoItem,
-                          ),
-                        ),
-                      );
+                      Get.toNamed(AppRoutes.videoPage, arguments: {
+                        'videoId': widget.videoItem.id,
+                      });
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,

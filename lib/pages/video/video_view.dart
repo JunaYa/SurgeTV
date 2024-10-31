@@ -2,95 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:surgetv/components/EmptyView.dart';
 import 'package:surgetv/components/FullScreenVideo.dart';
 import 'package:surgetv/components/PlayListBottomSheet.dart';
-import 'package:surgetv/dao/video_dao.dart';
-import 'package:surgetv/model/home.dart';
 import 'package:surgetv/model/video_detail.dart';
 import 'package:video_player/video_player.dart';
+import 'package:get/get.dart';
+import 'video_logic.dart';
 
-class VideoPage extends StatefulWidget {
-  const VideoPage({super.key, required this.videoItem});
-
-  final VideoItem videoItem;
-
-  @override
-  State createState() => _VideoPageState();
-}
-
-class _VideoPageState extends State<VideoPage> {
-  late PageController _pageController;
-  int currentPageIndex = 0; //当前播放索引
-  int currentIndex = 0; //当前播放索引
-  List<VideoData> videoDataList = []; //视频数据列表
-
-  @override
-  void initState() {
-    print('video item =====: ${widget.videoItem}');
-    loadData(false);
-    _pageController = PageController(initialPage: currentIndex);
-    _pageController.addListener(_onPageScroll);
-    super.initState();
-  }
-
-  void _onPageScroll() {
-    final pageIndex = _pageController.page?.round();
-    if (pageIndex != null && pageIndex != currentPageIndex) {
-      currentPageIndex = pageIndex;
-      print('=========> currentPageIndex: $currentPageIndex');
-      if (currentPageIndex == videoDataList.length - 2) {
-        loadData(true);
-      }
-    }
-  }
-
-  /// 视频数据 API请求
-  Future<void> loadData(bool isLoadMore) async {
-    // 延迟200ms 模拟网络请求
-    var res = await VideoDao.getVideoDetail(widget.videoItem.id);
-    print("------$res");
-    if (res.result) {
-      setState(() {});
-    }
-    if (isLoadMore) {
-      print('=========> loadData');
-      List<VideoData> newVideoDataList = [];
-      newVideoDataList.clear();
-      newVideoDataList.addAll(videoDataList);
-      newVideoDataList.addAll(testVideoData);
-      setState(() {
-        videoDataList = newVideoDataList;
-      });
-    } else {
-      setState(() {
-        videoDataList = testVideoData;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _pageController.removeListener(_onPageScroll);
-    _pageController.dispose();
-    super.dispose();
-  }
+class VideoPage extends StatelessWidget {
+  const VideoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final logic = Get.find<VideoLogic>();
+    final state = Get.find<VideoLogic>().state;
+
     return Scaffold(
         resizeToAvoidBottomInset: false, //很重要,不加键盘弹出视频会被挤压
         body: Stack(
           children: [
             PageView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: videoDataList.length,
-              controller: _pageController,
+              itemCount: state.videoDataList.length,
+              controller: state.pageController,
               onPageChanged: (currentPage) {
                 //页面发生改变的回调
               },
               itemBuilder: (context, index) {
                 return VideoPlayerFullPage(
                   size: size,
-                  videoData: videoDataList[index],
+                  videoData: state.videoDataList[index],
                 );
               },
             ),
@@ -110,15 +50,16 @@ class _VideoPageState extends State<VideoPage> {
             Row(
               children: [
                 IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
-                    }),
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
               ],
             ),
           ],
@@ -462,29 +403,3 @@ class _VideoPlayerFullPageState extends State<VideoPlayerFullPage> {
     );
   }
 }
-
-// 视频分集展示
-
-List<VideoData> testVideoData = [
-  VideoData(
-    id: 1,
-    video: "https://www.runoob.com/try/demo_source/movie.mp4",
-    albumImg: "http://8.141.13.174/v/x01.png",
-    likes: "100",
-    likeStatus: "1",
-    buyFlag: 1,
-    vipFlag: 1,
-    code: "1",
-    createTime: "2021-09-01 12:00:00",
-    dataStatus: 1,
-    feeType: 1,
-    img: "https://via.placeholder.com/350x150",
-    memo: "这是一个视频",
-    price: 10,
-    sort: 1,
-    stageId: 1,
-    subject: "视频标题",
-    topFlag: 1,
-    updateTime: "2021-09-01 12:00:00",
-  ),
-];

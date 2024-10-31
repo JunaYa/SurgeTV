@@ -32,6 +32,9 @@ abstract class AppRoutes {
   // person /shop
   static const shopPage = '/shop';
 
+  // video
+  static const videoPage = '/video';
+
   // webpage
   static const webpagePage = '/webpagePage';
 }
