@@ -1,96 +1,17 @@
 // coupon_dialog.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CouponDialog extends StatefulWidget {
-  final Function(String) onSubmit;
-  final String description;
+import 'coupon_dialog_logic.dart';
 
-  const CouponDialog({
-    super.key,
-    required this.onSubmit,
-    this.description = '请输入优惠券序列号进行兑换，确保输入正确以避免兑换失败',
-  });
-
-  static Future<void> show({
-    required BuildContext context,
-    String? description,
-  }) {
-    Future<void> redeemCoupon(String code) async {
-      // 模拟网络请求
-      await Future.delayed(const Duration(seconds: 1));
-      if (code == 'TEST123') {
-        throw '该优惠券已被使用';
-      }
-      // 处理兑换逻辑
-      debugPrint('兑换成功：$code');
-    }
-
-    return showDialog(
-      context: context,
-      builder: (context) => CouponDialog(
-        onSubmit: redeemCoupon,
-        description: description ?? '请输入优惠券序列号进行兑换，确保输入正确以避免兑换失败',
-      ),
-    );
-  }
-
-  @override
-  State<CouponDialog> createState() => _CouponDialogState();
-}
-
-class _CouponDialogState extends State<CouponDialog> {
-  final TextEditingController _controller = TextEditingController();
-  bool _isSubmitting = false;
-  String? _errorText;
-
-  // 验证输入的序列号格式
-  bool _validateCode(String code) {
-    // 这里添加你的验证逻辑，例如：
-    // - 长度限制
-    // - 字符要求
-    // - 格式检查
-    if (code.isEmpty) {
-      setState(() => _errorText = '请输入优惠券序列号');
-      return false;
-    }
-    if (code.length < 6) {
-      setState(() => _errorText = '序列号长度不能小于6位');
-      return false;
-    }
-    setState(() => _errorText = null);
-    return true;
-  }
-
-  // 处理提交
-  Future<void> _handleSubmit() async {
-    final code = _controller.text.trim();
-
-    if (!_validateCode(code)) return;
-
-    setState(() => _isSubmitting = true);
-
-    try {
-      await widget.onSubmit(code);
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-    } catch (e) {
-      setState(() {
-        _errorText = e.toString();
-        _isSubmitting = false;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class CouponDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final logic = Bind.find<CouponDialogLogic>();
+    final state = Bind.find<CouponDialogLogic>().state;
+    final i18n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return Dialog(
@@ -107,7 +28,7 @@ class _CouponDialogState extends State<CouponDialog> {
             Row(
               children: [
                 Text(
-                  '优惠券兑换',
+                  i18n.exchangeExclusiveDiscount,
                   style: theme.textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -124,7 +45,7 @@ class _CouponDialogState extends State<CouponDialog> {
 
             // 描述文本
             Text(
-              widget.description,
+              i18n.pleaseEnter + i18n.couponCode,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.textTheme.bodySmall?.color,
               ),
@@ -134,10 +55,10 @@ class _CouponDialogState extends State<CouponDialog> {
 
             // 输入框
             TextField(
-              controller: _controller,
+              controller: logic.controller,
               decoration: InputDecoration(
-                hintText: '请输入序列号',
-                errorText: _errorText,
+                hintText: i18n.pleaseEnter + i18n.couponCode,
+                errorText: state.errorText,
                 prefixIcon: const Icon(Icons.card_giftcard),
                 border: const OutlineInputBorder(),
                 // 添加复制按钮
@@ -146,10 +67,10 @@ class _CouponDialogState extends State<CouponDialog> {
                   onPressed: () async {
                     final data = await Clipboard.getData('text/plain');
                     if (data?.text != null) {
-                      _controller.text = data!.text!;
+                      logic.controller.text = data!.text!;
                     }
                   },
-                  tooltip: '从剪贴板粘贴',
+                  tooltip: i18n.pasteFromClipboard,
                 ),
               ),
               // 自动大写
@@ -159,15 +80,15 @@ class _CouponDialogState extends State<CouponDialog> {
                 FilteringTextInputFormatter.allow(RegExp('[A-Za-z0-9-]')),
                 UpperCaseTextFormatter(),
               ],
-              onSubmitted: (_) => _handleSubmit(),
+              onSubmitted: (_) => logic.handleSubmit(),
             ),
 
             const SizedBox(height: 24),
 
             // 提交按钮
             FilledButton(
-              onPressed: _isSubmitting ? null : _handleSubmit,
-              child: _isSubmitting
+              onPressed: state.isSubmitting ? null : logic.handleSubmit,
+              child: state.isSubmitting
                   ? const SizedBox(
                       height: 20,
                       width: 20,
@@ -175,7 +96,7 @@ class _CouponDialogState extends State<CouponDialog> {
                         strokeWidth: 2,
                       ),
                     )
-                  : const Text('立即兑换'),
+                  : Text(i18n.exchange),
             ),
           ],
         ),

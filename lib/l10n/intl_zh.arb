@@ -22,5 +22,11 @@
   "feedback_email": "意见反馈邮箱",
   "feedback_id": "反馈时请附带您的 ID",
   "feedback_note": "提交后请耐心等待，我们会尽快处理您的反馈。",
-  "copy_email": "复制邮箱"
+  "copy_email": "复制邮箱",
+  "exchangeExclusiveDiscount": "兑换专属优惠",
+  "pleaseEnter": "请输入",
+  "couponCode": "优惠券序列号",
+  "pasteFromClipboard": "从剪贴板粘贴",
+  "exchange": "立即兑换",
+  "exchangeFailed": "兑换失败"
 }

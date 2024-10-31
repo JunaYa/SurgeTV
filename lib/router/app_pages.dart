@@ -13,6 +13,7 @@ import 'package:surgetv/pages/index/index_logic.dart';
 import 'package:surgetv/pages/index/index_view.dart';
 import 'package:surgetv/pages/login/login_logic.dart';
 import 'package:surgetv/pages/login/login_view.dart';
+import 'package:surgetv/pages/person/coupon_dialog/coupon_dialog_logic.dart';
 import 'package:surgetv/pages/person/person_view.dart';
 import 'package:surgetv/pages/person/person_logic.dart';
 import 'package:surgetv/pages/person/wallet_info/wallet_info_logic.dart';
@@ -79,6 +80,7 @@ class AppPages {
       binds: [
         Bind.lazyPut(() => PersonLogic()),
         Bind.lazyPut(() => WalletInfoLogic()),
+        Bind.lazyPut(() => CouponDialogLogic()),
       ],
     ),
     GetPage(

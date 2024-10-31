@@ -22,5 +22,11 @@
   "feedback_email": "Feedback Email",
   "feedback_id": "Feedback ID",
   "feedback_note": "Please wait patiently for us to process your feedback after submission.",
-  "copy_email": "Copy Email"
+  "copy_email": "Copy Email",
+  "exchangeExclusiveDiscount": "Exchange Exclusive Discount",
+  "pleaseEnter": "Please input ",
+  "couponCode": "Coupon Code",
+  "pasteFromClipboard": "Paste from Clipboard",
+  "exchange": "Exchange",
+  "exchangeFailed": "Exchange Failed"
 }

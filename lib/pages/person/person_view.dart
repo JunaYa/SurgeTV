@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
-import 'package:surgetv/components/coupon_dialog.dart';
+import 'package:surgetv/pages/person/coupon_dialog/coupon_dialog_logic.dart';
 import 'package:surgetv/components/version_checker.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
 import 'package:surgetv/pages/person/wallet_info/wallet_info_view.dart';
@@ -91,10 +91,7 @@ class PersonPage extends StatelessWidget {
                   icon: const Icon(Icons.currency_exchange_outlined),
                   title: i18n.coupon,
                   onPressed: () {
-                    CouponDialog.show(
-                      context: context,
-                      description: '输入您收到的优惠券序列号，兑换专属优惠。\n每个序列号仅能使用一次。',
-                    );
+                    CouponDialogLogic.show(context: context);
                   },
                 ),
                 const DividerWidget(),
