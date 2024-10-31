@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:surgetv/dao/user_dao.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -14,10 +15,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('登录/注册'),
+        title: Text(i18n.login),
       ),
       body: Center(
         child: ElevatedButton(

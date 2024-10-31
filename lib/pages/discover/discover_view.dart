@@ -1,96 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:surgetv/components/EmptyView.dart';
 import 'package:surgetv/components/PlayListBottomSheet.dart';
-import 'package:surgetv/dao/discover_dao.dart';
 import 'package:surgetv/model/discover.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DiscoverPage extends StatefulWidget {
+import 'discover_logic.dart';
+
+class DiscoverPage extends StatelessWidget {
   const DiscoverPage({super.key});
 
   @override
-  State<DiscoverPage> createState() => _DiscoverPageState();
-}
-
-class _DiscoverPageState extends State<DiscoverPage> {
-  late PageController _pageController;
-  int currentPageIndex = 0; //当前播放索引
-  int currentIndex = 0; //当前播放索引
-  List<DiscoverVideo> videoDataList = []; //视频数据列表
-
-  @override
-  void initState() {
-    loadData(false);
-    _pageController = PageController(initialPage: currentIndex);
-    _pageController.addListener(_onPageScroll);
-    super.initState();
-  }
-
-  void _onPageScroll() {
-    final pageIndex = _pageController.page?.round();
-    if (pageIndex != null && pageIndex != currentPageIndex) {
-      currentPageIndex = pageIndex;
-      print('=========> currentPageIndex: $currentPageIndex');
-      if (currentPageIndex == videoDataList.length - 2) {
-        loadData(true);
-      }
-    }
-  }
-
-  /// 视频数据 API请求
-  Future<void> loadData(bool isLoadMore) async {
-    // 延迟200ms 模拟网络请求
-    var res = await DiscoverDao.getVideoList();
-    if (res.result) {
-      setState(() {
-        videoDataList = res.data as List<DiscoverVideo>;
-      });
-    }
-    if (isLoadMore) {
-      print('=========> loadData');
-      List<DiscoverVideo> newDiscoverVideoList = [];
-      newDiscoverVideoList.clear();
-      newDiscoverVideoList.addAll(videoDataList);
-      setState(() {
-        videoDataList = newDiscoverVideoList;
-      });
-    } else {
-      setState(() {
-        videoDataList = videoDataList;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _pageController.removeListener(_onPageScroll);
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final logic = Bind.find<DiscoverLogic>();
+    final state = Bind.find<DiscoverLogic>().state;
+    final i18n = AppLocalizations.of(context)!;
     var size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Obx(
+      () => Scaffold(
         resizeToAvoidBottomInset: false, //很重要,不加键盘弹出视频会被挤压
         body: Stack(
           children: [
             PageView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: videoDataList.length,
-              controller: _pageController,
+              itemCount: state.videoDataList.value.length,
+              controller: logic.pageController,
               onPageChanged: (currentPage) {
                 //页面发生改变的回调
               },
               itemBuilder: (context, index) {
                 return VideoPlayerFullPage(
                   size: size,
-                  videoData: videoDataList[index],
+                  videoData: state.videoDataList.value[index],
                 );
               },
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
 
