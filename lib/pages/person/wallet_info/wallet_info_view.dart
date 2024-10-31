@@ -6,12 +6,19 @@ import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/components/GradientButton.dart';
 import 'package:surgetv/router/app_routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'wallet_info_logic.dart';
 
 class WalletInfoBoard extends StatelessWidget {
   const WalletInfoBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logic = Bind.find<WalletInfoLogic>();
+    final state = Bind.find<WalletInfoLogic>().state;
+    final i18n = AppLocalizations.of(context)!;
+
     Color surfaceTint = Theme.of(context).colorScheme.primary;
     TextStyle cardTextStyle = Theme.of(context).textTheme.bodyLarge!;
 
@@ -31,7 +38,7 @@ class WalletInfoBoard extends StatelessWidget {
                   children: [
                     const Icon(Icons.account_balance_wallet),
                     const SizedBox(width: 8),
-                    Text('我的钱包', style: cardTextStyle),
+                    Text(i18n.my_wallet, style: cardTextStyle),
                   ],
                 ),
                 SizedBox(
@@ -50,7 +57,7 @@ class WalletInfoBoard extends StatelessWidget {
                     onPressed: () {
                       Get.toNamed(AppRoutes.shopPage);
                     },
-                    child: Text('充值', style: cardTextStyle),
+                    child: Text(i18n.recharge, style: cardTextStyle),
                   ),
                 ),
               ],
@@ -58,15 +65,15 @@ class WalletInfoBoard extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Text('余额', style: cardTextStyle),
+                Text(i18n.balance, style: cardTextStyle),
                 const Spacer(flex: 1),
-                Text('0T币', style: cardTextStyle),
+                Text('0${i18n.coin}', style: cardTextStyle),
               ],
             ),
             const SizedBox(height: 8),
             Row(
               children: [
-                Text('会员有效期', style: cardTextStyle),
+                Text(i18n.member_validity, style: cardTextStyle),
                 const Spacer(flex: 1),
                 Text('0', style: cardTextStyle),
               ],

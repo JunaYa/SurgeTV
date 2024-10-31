@@ -13,5 +13,14 @@
   "coupon": "Coupon",
   "login": "Login/Register",
   "playHistory": "Play History",
-  "checkVersion": "Check Version"
+  "checkVersion": "Check Version",
+  "my_wallet": "My Wallet",
+  "coin": "T Coin",
+  "recharge": "Recharge",
+  "balance": "Balance",
+  "member_validity": "Member Validity",
+  "feedback_email": "Feedback Email",
+  "feedback_id": "Feedback ID",
+  "feedback_note": "Please wait patiently for us to process your feedback after submission.",
+  "copy_email": "Copy Email"
 }

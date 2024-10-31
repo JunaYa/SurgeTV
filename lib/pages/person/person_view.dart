@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
-import 'package:surgetv/components/WalletInfoBoard.dart';
 import 'package:surgetv/components/coupon_dialog.dart';
 import 'package:surgetv/components/version_checker.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
+import 'package:surgetv/pages/person/wallet_info/wallet_info_view.dart';
 import 'package:surgetv/router/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

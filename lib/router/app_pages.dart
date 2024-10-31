@@ -3,6 +3,8 @@ import 'package:surgetv/pages/about/about_logic.dart';
 import 'package:surgetv/pages/about/about_view.dart';
 import 'package:surgetv/pages/discover/discover_logic.dart';
 import 'package:surgetv/pages/discover/discover_view.dart';
+import 'package:surgetv/pages/feedback/feedback_logic.dart';
+import 'package:surgetv/pages/feedback/feedback_view.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
 import 'package:surgetv/pages/gift/gift_logic.dart';
 import 'package:surgetv/pages/home/home_logic.dart';
@@ -13,6 +15,7 @@ import 'package:surgetv/pages/login/login_logic.dart';
 import 'package:surgetv/pages/login/login_view.dart';
 import 'package:surgetv/pages/person/person_view.dart';
 import 'package:surgetv/pages/person/person_logic.dart';
+import 'package:surgetv/pages/person/wallet_info/wallet_info_logic.dart';
 import 'package:surgetv/pages/search/search_logic.dart';
 import 'package:surgetv/pages/search/search_view.dart';
 import 'package:surgetv/pages/setting/setting_logic.dart';
@@ -75,6 +78,7 @@ class AppPages {
       page: () => const PersonPage(),
       binds: [
         Bind.lazyPut(() => PersonLogic()),
+        Bind.lazyPut(() => WalletInfoLogic()),
       ],
     ),
     GetPage(
@@ -103,6 +107,13 @@ class AppPages {
       page: () => const ShopPage(),
       binds: [
         Bind.lazyPut(() => ShopLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.feedbackPage,
+      page: () => const FeedbackPage(),
+      binds: [
+        Bind.lazyPut(() => FeedbackLogic()),
       ],
     ),
     GetPage(
