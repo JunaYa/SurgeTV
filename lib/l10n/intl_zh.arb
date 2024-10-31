@@ -28,5 +28,11 @@
   "couponCode": "优惠券序列号",
   "pasteFromClipboard": "从剪贴板粘贴",
   "exchange": "立即兑换",
-  "exchangeFailed": "兑换失败"
+  "exchangeFailed": "兑换失败",
+  "versionCheckTitle": "发现新版本",
+  "versionCheckCurrentVersion": "当前版本",
+  "versionCheckStoreVersion": "最新版本",
+  "versionCheckUpdateContent": "更新内容",
+  "versionCheckLaterUpdate": "稍后更新",
+  "versionCheckUpdateNow": "立即更新"
 }

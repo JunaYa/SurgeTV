@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:surgetv/components/ElevationCard.dart';
 import 'package:surgetv/pages/person/coupon_dialog/coupon_dialog_logic.dart';
-import 'package:surgetv/components/version_checker.dart';
+import 'package:surgetv/pages/person/version_check/version_check_logic.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
 import 'package:surgetv/pages/person/wallet_info/wallet_info_view.dart';
 import 'package:surgetv/router/app_routes.dart';
@@ -72,7 +72,7 @@ class PersonPage extends StatelessWidget {
                   icon: const Icon(Icons.cloud_download_outlined),
                   title: i18n.checkVersion,
                   onPressed: () {
-                    AppVersionChecker.checkForUpdate(context);
+                    VersionCheckLogic.checkForUpdate(context);
                   },
                 ),
               ],

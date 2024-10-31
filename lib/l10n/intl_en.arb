@@ -28,5 +28,11 @@
   "couponCode": "Coupon Code",
   "pasteFromClipboard": "Paste from Clipboard",
   "exchange": "Exchange",
-  "exchangeFailed": "Exchange Failed"
+  "exchangeFailed": "Exchange Failed",
+  "versionCheckTitle": "New Version Found",
+  "versionCheckCurrentVersion": "Current Version",
+  "versionCheckStoreVersion": "Latest Version",
+  "versionCheckUpdateContent": "Update Content",
+  "versionCheckLaterUpdate": "Later Update",
+  "versionCheckUpdateNow": "Update Now"
 }
