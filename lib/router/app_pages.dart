@@ -3,6 +3,7 @@ import 'package:surgetv/pages/about/about_logic.dart';
 import 'package:surgetv/pages/about/about_view.dart';
 import 'package:surgetv/pages/discover/discover_logic.dart';
 import 'package:surgetv/pages/discover/discover_view.dart';
+import 'package:surgetv/pages/discover/video_player_full/video_player_full_logic.dart';
 import 'package:surgetv/pages/feedback/feedback_logic.dart';
 import 'package:surgetv/pages/feedback/feedback_view.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
@@ -66,6 +67,7 @@ class AppPages {
       page: () => const DiscoverPage(),
       binds: [
         Bind.lazyPut(() => DiscoverLogic()),
+        Bind.lazyPut(() => VideoPlayerFullLogic()),
       ],
     ),
     GetPage(
