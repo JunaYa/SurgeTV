@@ -34,5 +34,7 @@
   "versionCheckStoreVersion": "Latest Version",
   "versionCheckUpdateContent": "Update Content",
   "versionCheckLaterUpdate": "Later Update",
-  "versionCheckUpdateNow": "Update Now"
+  "versionCheckUpdateNow": "Update Now",
+  "language": "Language",
+  "settingTheme": "Theme"
 }

@@ -47,4 +47,12 @@ class SettingLogic extends GetxController {
     Get.changeTheme(await Utils().themeUtil.buildTheme(Brightness.light));
     Get.changeTheme(await Utils().themeUtil.buildTheme(Brightness.dark));
   }
+
+  // language change
+  Future<void> handleLanguageChange(String value) async {
+    await Utils().prefUtil.setValue('language', value);
+    state.language = value;
+    // i18n 更新
+    Get.updateLocale(Locale(value));
+  }
 }

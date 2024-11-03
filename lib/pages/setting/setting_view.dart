@@ -22,12 +22,39 @@ class SettingPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // 多语言切换
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.language),
+                onPressed: () {},
+              ),
+              Text(i18n.language),
+              Expanded(child: Container()),
+              DropdownButton<String>(
+                items: [
+                  DropdownMenuItem<String>(
+                    value: 'zh',
+                    child: Text('中文'),
+                  ),
+                  DropdownMenuItem<String>(
+                    value: 'en',
+                    child: Text('English'),
+                  ),
+                ],
+                value: state.language,
+                onChanged: (value) {
+                  logic.handleLanguageChange(value!);
+                },
+              ),
+            ],
+          ),
           Row(
             children: [
               _BrightnessButton(
                 handleBrightnessChange: () => logic.toggleThemeMode(),
               ),
-              const Text('主题'),
+              Text(i18n.settingTheme),
               Expanded(child: Container()),
               Switch(
                   value: Theme.of(context).brightness == Brightness.light,

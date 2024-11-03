@@ -26,6 +26,8 @@ class PrefUtil {
     'themeMode',
     //Material版本
     'useMaterial3',
+    //语言
+    'language',
     //动态配色
     'dynamicColor',
     //图片质量
@@ -110,6 +112,7 @@ class PrefUtil {
         'useMaterial3', _prefs.getBool('useMaterial3') ?? true);
     await _prefs.setBool(
         'dynamicColor', _prefs.getBool('dynamicColor') ?? true);
+    await _prefs.setString('language', _prefs.getString('language') ?? 'zh');
     await _prefs.setInt('quality', _prefs.getInt('quality') ?? 2);
     await _prefs.setBool('local', _prefs.getBool('local') ?? false);
     await _prefs.setBool('lock', _prefs.getBool('lock') ?? false);

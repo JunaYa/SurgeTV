@@ -9,6 +9,7 @@ class SettingState {
   late ColorImageProvider imageSelected;
   late ColorSelectionMethod colorSelectionMethod =
       ColorSelectionMethod.colorSeed;
+  late String language;
 
   SettingState() {
     // 初始化状态
@@ -21,5 +22,6 @@ class SettingState {
     imageSelected =
         Utils().prefUtil.getValue<ColorImageProvider>('themeImage')!;
     useMaterial3 = Utils().prefUtil.getValue<bool>('useMaterial3')!;
+    language = Utils().prefUtil.getValue<String>('language')!;
   }
 }
