@@ -1,5 +1,9 @@
 {
   "@@locale": "zh",
+  "tabHome": "首页",
+  "tabDiscover": "发现",
+  "tabGift": "福利",
+  "tabPerson": "个人",
   "ok": "确认",
   "cancel": "取消",
   "appName": "心绪日记",

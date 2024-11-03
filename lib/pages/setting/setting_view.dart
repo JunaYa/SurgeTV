@@ -32,7 +32,7 @@ class SettingPage extends StatelessWidget {
               Text(i18n.language),
               Expanded(child: Container()),
               DropdownButton<String>(
-                items: [
+                items: const [
                   DropdownMenuItem<String>(
                     value: 'zh',
                     child: Text('中文'),

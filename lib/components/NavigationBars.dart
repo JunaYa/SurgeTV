@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigationBars extends StatefulWidget {
   const NavigationBars({
@@ -33,6 +34,35 @@ class _NavigationBarsState extends State<NavigationBars> {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
+    const List<NavigationDestination> appBarDestinations = [
+      NavigationDestination(
+        tooltip: '',
+        icon: Icon(Icons.home_outlined),
+        label: i18n.tabHome,
+        selectedIcon: Icon(Icons.home),
+      ),
+      NavigationDestination(
+        tooltip: '',
+        icon: Icon(Icons.explore_outlined),
+        label: i18n.tabDiscover,
+        selectedIcon: Icon(Icons.explore),
+      ),
+      NavigationDestination(
+        tooltip: '',
+        icon: Icon(Icons.wallet_giftcard_outlined),
+        label: i18n.tabGift,
+        selectedIcon: Icon(Icons.wallet_giftcard),
+      ),
+      NavigationDestination(
+        tooltip: '',
+        icon: Icon(Icons.person_outline),
+        label: i18n.tabPerson,
+        selectedIcon: Icon(Icons.person),
+      )
+    ];
+
     // App NavigationBar should get first focus.
     Widget navigationBar = Focus(
       autofocus: true,
@@ -51,33 +81,6 @@ class _NavigationBarsState extends State<NavigationBars> {
     return navigationBar;
   }
 }
-
-const List<NavigationDestination> appBarDestinations = [
-  NavigationDestination(
-    tooltip: '',
-    icon: Icon(Icons.home_outlined),
-    label: 'Home',
-    selectedIcon: Icon(Icons.home),
-  ),
-  NavigationDestination(
-    tooltip: '',
-    icon: Icon(Icons.explore_outlined),
-    label: 'Discover',
-    selectedIcon: Icon(Icons.explore),
-  ),
-  NavigationDestination(
-    tooltip: '',
-    icon: Icon(Icons.wallet_giftcard_outlined),
-    label: 'Gift',
-    selectedIcon: Icon(Icons.wallet_giftcard),
-  ),
-  NavigationDestination(
-    tooltip: '',
-    icon: Icon(Icons.person_outline),
-    label: 'Person',
-    selectedIcon: Icon(Icons.person),
-  )
-];
 
 List<Widget> barWithBadgeDestinations = [
   NavigationDestination(

@@ -1,5 +1,9 @@
 {
   "@@locale": "en",
+  "tabHome": "Home",
+  "tabDiscover": "Discover",
+  "tabGift": "Gift",
+  "tabPerson": "Person",
   "ok": "OK",
   "cancel": "Cancel",
   "appName": "SurgeTV",
