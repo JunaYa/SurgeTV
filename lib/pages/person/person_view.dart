@@ -64,7 +64,9 @@ class PersonPage extends StatelessWidget {
                 FieldItemWidget(
                   icon: const Icon(Icons.history),
                   title: i18n.playHistory,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.historyPage);
+                  },
                 ),
                 const DividerWidget(),
                 // 检测新版本

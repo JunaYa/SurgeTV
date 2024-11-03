@@ -36,30 +36,30 @@ class _NavigationBarsState extends State<NavigationBars> {
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    const List<NavigationDestination> appBarDestinations = [
+    List<NavigationDestination> appBarDestinations = [
       NavigationDestination(
         tooltip: '',
-        icon: Icon(Icons.home_outlined),
+        icon: const Icon(Icons.home_outlined),
         label: i18n.tabHome,
-        selectedIcon: Icon(Icons.home),
+        selectedIcon: const Icon(Icons.home),
       ),
       NavigationDestination(
         tooltip: '',
-        icon: Icon(Icons.explore_outlined),
+        icon: const Icon(Icons.explore_outlined),
         label: i18n.tabDiscover,
-        selectedIcon: Icon(Icons.explore),
+        selectedIcon: const Icon(Icons.explore),
       ),
       NavigationDestination(
         tooltip: '',
-        icon: Icon(Icons.wallet_giftcard_outlined),
+        icon: const Icon(Icons.wallet_giftcard_outlined),
         label: i18n.tabGift,
-        selectedIcon: Icon(Icons.wallet_giftcard),
+        selectedIcon: const Icon(Icons.wallet_giftcard),
       ),
       NavigationDestination(
         tooltip: '',
-        icon: Icon(Icons.person_outline),
+        icon: const Icon(Icons.person_outline),
         label: i18n.tabPerson,
-        selectedIcon: Icon(Icons.person),
+        selectedIcon: const Icon(Icons.person),
       )
     ];
 

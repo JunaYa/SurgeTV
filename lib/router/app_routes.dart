@@ -37,4 +37,7 @@ abstract class AppRoutes {
 
   // webpage
   static const webpagePage = '/webpagePage';
+
+  // history
+  static const historyPage = '/history';
 }

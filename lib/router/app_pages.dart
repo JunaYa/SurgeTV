@@ -8,6 +8,8 @@ import 'package:surgetv/pages/feedback/feedback_logic.dart';
 import 'package:surgetv/pages/feedback/feedback_view.dart';
 import 'package:surgetv/pages/gift/gift_view.dart';
 import 'package:surgetv/pages/gift/gift_logic.dart';
+import 'package:surgetv/pages/history/history_logic.dart';
+import 'package:surgetv/pages/history/history_view.dart';
 import 'package:surgetv/pages/home/home_logic.dart';
 import 'package:surgetv/pages/home/home_view.dart';
 import 'package:surgetv/pages/index/index_logic.dart';
@@ -127,6 +129,13 @@ class AppPages {
       page: () => const VideoPage(),
       binds: [
         Bind.lazyPut(() => VideoLogic()),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.historyPage,
+      page: () => const HistoryPage(),
+      binds: [
+        Bind.lazyPut(() => HistoryLogic()),
       ],
     ),
   ];

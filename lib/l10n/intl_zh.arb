@@ -40,5 +40,6 @@
   "versionCheckLaterUpdate": "稍后更新",
   "versionCheckUpdateNow": "立即更新",
   "language": "语言",
-  "settingTheme": "主题"
+  "settingTheme": "主题",
+  "history": "历史"
 }

@@ -40,5 +40,6 @@
   "versionCheckLaterUpdate": "Later Update",
   "versionCheckUpdateNow": "Update Now",
   "language": "Language",
-  "settingTheme": "Theme"
+  "settingTheme": "Theme",
+  "history": "History"
 }
