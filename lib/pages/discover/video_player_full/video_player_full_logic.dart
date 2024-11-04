@@ -5,14 +5,21 @@ import 'package:video_player/video_player.dart';
 import 'video_player_full_state.dart';
 
 class VideoPlayerFullLogic extends GetxController {
+  VideoPlayerFullLogic({this.videoData});
+
+  final DiscoverVideo? videoData;
+
   final VideoPlayerFullState state = VideoPlayerFullState();
 
   late VideoPlayerController videoController;
 
   @override
   void onInit() {
+    if (videoData == null) {
+      return;
+    }
     videoController =
-        VideoPlayerController.networkUrl(Uri.parse(state.videoData!.video))
+        VideoPlayerController.networkUrl(Uri.parse(videoData!.video))
           ..initialize().then((value) {
             videoController.play();
             videoController.setLooping(true);

@@ -15,11 +15,11 @@ class VideoPlayerFullPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logic = Bind.find<VideoPlayerFullLogic>();
+    final logic = Get.put(VideoPlayerFullLogic(videoData: videoData!));
     final state = Bind.find<VideoPlayerFullLogic>().state;
 
     state.videoData = videoData;
-    
+
     // 用户信息
     Widget getProfile(DiscoverVideo videoData) {
       return GestureDetector(
