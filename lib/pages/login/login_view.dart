@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
     final i18n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n.login),
+        title: Text(i18n.loginRegister),
       ),
       body: Center(
         child: ElevatedButton(

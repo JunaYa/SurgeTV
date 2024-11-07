@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:surgetv/components/CheckInBoard.dart';
 import 'package:surgetv/components/ElevationCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GiftPage extends StatelessWidget {
   const GiftPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
@@ -59,15 +62,16 @@ class MoreGift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     return ElevationCard(
       elevation: 1,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
       shadowColor: Colors.transparent,
       padding: EdgeInsets.zero,
-      child: const Column(
+      child: Column(
         children: [
-          Title(name: '更多福利'),
-          MoreWelfareList(),
+          Title(name: i18n.moreGift),
+          const MoreWelfareList(),
         ],
       ),
     );
@@ -80,14 +84,15 @@ class MoreWelfareList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     return Column(
       children: [
         WelfareItem(
           coinCount: 5,
           currentCount: 0,
           totalCount: 1,
-          description: '用户首次登录可获得登录奖励',
-          buttonText: '登录',
+          description: i18n.loginFirst,
+          buttonText: i18n.login,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -95,8 +100,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 2,
           currentCount: 0,
           totalCount: 1,
-          description: '观看1个视频广告即可获得奖励',
-          buttonText: '观看',
+          description: i18n.watchVideo,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -104,8 +109,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 2,
           currentCount: 0,
           totalCount: 0,
-          description: '今日累计观看10分钟即可获得奖励',
-          buttonText: '观看',
+          description: i18n.watchVideo10Minutes,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -113,8 +118,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 3,
           currentCount: 0,
           totalCount: 1,
-          description: '允许通知',
-          buttonText: '准许',
+          description: i18n.allowNotification,
+          buttonText: i18n.allow,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -122,8 +127,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 2,
           currentCount: 0,
           totalCount: 0,
-          description: '关注 SurgeTV 并打招呼就能获得奖励',
-          buttonText: '关注',
+          description: i18n.followSurgeTV,
+          buttonText: i18n.follow,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -132,8 +137,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 3,
           currentCount: 0,
           totalCount: 1,
-          description: '绑定邮箱获得奖励',
-          buttonText: '绑定',
+          description: i18n.bindEmail,
+          buttonText: i18n.bind,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -142,8 +147,8 @@ class MoreWelfareList extends StatelessWidget {
           coinCount: 3,
           currentCount: 0,
           totalCount: 1,
-          description: '分享给脸书',
-          buttonText: '分享',
+          description: i18n.shareToFacebook,
+          buttonText: i18n.share,
           onPressed: () {},
         ),
       ],
@@ -157,15 +162,16 @@ class OtherWelfare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     return ElevationCard(
       elevation: 1,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
       shadowColor: Colors.transparent,
       padding: EdgeInsets.zero,
-      child: const Column(
+      child: Column(
         children: [
-          Title(name: '其它福利'),
-          OtherWelfareList(),
+          Title(name: i18n.otherWelfare),
+          const OtherWelfareList(),
         ],
       ),
     );
@@ -178,14 +184,15 @@ class OtherWelfareList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     return Column(
       children: [
         WelfareItem(
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '点击最近新闻上的两则广告',
-          buttonText: '观看',
+          description: i18n.clickTwoAdsOnRecentNews,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -193,8 +200,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '点击两张图片快速获得奖励',
-          buttonText: '观看',
+          description: i18n.clickTwoImagesToGetReward,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -202,8 +209,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '浏览新闻并点击两张图片',
-          buttonText: '观看',
+          description: i18n.browseNewsAndClickTwoImages,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -211,8 +218,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '点击网页上的2则广告',
-          buttonText: '观看',
+          description: i18n.clickTwoAdsOnWebPage,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -220,8 +227,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '点按新闻快讯上的2个广告',
-          buttonText: '观看',
+          description: i18n.clickTwoAdsOnNewsFlash,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -229,8 +236,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '停留15秒并点击2张图片',
-          buttonText: '观看',
+          description: i18n.stay15SecondsAndClickTwoImages,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
         const DividerWidget(),
@@ -238,8 +245,8 @@ class OtherWelfareList extends StatelessWidget {
           coinCount: 1,
           currentCount: 0,
           totalCount: 5,
-          description: '1分钟内点击两个广告',
-          buttonText: '观看',
+          description: i18n.clickTwoAdsInOneMinute,
+          buttonText: i18n.watch,
           onPressed: () {},
         ),
       ],

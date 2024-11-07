@@ -33,7 +33,7 @@ class PersonPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  i18n.login,
+                  i18n.loginRegister,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
